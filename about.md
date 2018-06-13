@@ -3,16 +3,16 @@ layout: page
 title: About
 permalink: /about/
 ---
+### 嗨喽，我们是starm. 普通的代码搬运工.
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+　　我们是一群90后的奋斗青年，
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+　　我们每个人都有梦想，
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+　　我们每个人都会有点小情绪，
 
+　　我们每天都在用文字掩饰心中的不安。
 
-[jekyll-organization]: https://github.com/jekyll
+　　如果你也爱文字，爱代码，爱交友。
+
+　　我们一起交个好友吧。

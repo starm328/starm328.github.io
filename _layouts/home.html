@@ -15,7 +15,7 @@ title: 首页
       <li>
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
         <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <p>{{ post.content | strip_html | strip_newlines | truncate: 250 }}&hellip;</p>
+        <p>{{ post.content | strip_html | strip_newlines | truncate: 80 }}&hellip;</p>
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}{{ post.tags }}
