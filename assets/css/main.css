@@ -230,6 +230,12 @@ table {
     .site-header{
       width: 100%;
       min-width:auto;
+      position: fixed;
+      top:0;
+      background: #fff;
+    }
+    .page-content{
+      margin-top: 50px
     }
     .site-nav {
       position: absolute;
