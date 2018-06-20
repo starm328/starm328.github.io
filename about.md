@@ -3,6 +3,7 @@ layout: page
 title: About
 permalink: /about/
 ---
+<img src="../../../../../assets/images/about/logo.png" style="height:100px;display: block;margin:0 auto;">
 ### 嗨喽，我们是starm. 普通的代码搬运工.
 
 　　我们是一群90后的奋斗青年，
