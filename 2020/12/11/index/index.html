@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html >
+
+<head>
+  
+  <title>搭建一个Hexo博客，制作主题模板 - RiseApe</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="undefined">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5,user-scalble=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css" integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
+    integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css"> -->
+  <link rel="stylesheet" href="/css/style.css?v=1608271790006">
+  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1608271790006">
+  <script>
+    var preloader = {
+      endLoading: () => {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      },
+      initLoading: () => {
+        document.body.style.overflow = '';
+        document.getElementById('loading-box').classList.remove("loaded")
+
+      }
+    }
+    window.addEventListener('load', () => { preloader.endLoading() })
+  </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  <div id="loading-box">
+    <div class="loading-left-bg"></div>
+    <div class="loading-right-bg"></div>
+    <div class="spinner-box">
+      <div class="configure-border-1">
+        <div class="configure-core"></div>
+      </div>
+      <div class="configure-border-2">
+        <div class="configure-core"></div>
+      </div>
+      <div class="loading-word">加载中...</div>
+    </div>
+  </div>
+  <div id="riseape-background">
+    <div class="riseape-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i
+            class="mdui-icon material-icons">&#xe3c7;</i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="/" title="starm" class="mdui-btn mdui-btn-icon"><img
+            src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" alt="starm"></a>
+      </div>
+    </div>
+  </div>
+  <div id="riseape-header">
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-18 10:34:53
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 13:42:50
+-->
+<div class="riseape-drawer mdui-drawer" id="drawer">
+     <div class="riseape-avatar mdui-ripple">
+        <a href="/" title="starm">
+            <img src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" alt="starm" alt="starm">
+        </a>
+    </div>
+    <p class="riseape-submit" id="subtitle">心向大海,随遇而安</p>
+    <div class="riseape-count">
+        <div><span>文章</span>1</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="riseape-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon riseapefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/archives.html" title="里程碑">
+            <i class="mdui-list-item-icon riseapefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                里程碑
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的邻居">
+            <i class="mdui-list-item-icon riseapefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的邻居
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/About.html" title="关于我">
+            <i class="mdui-list-item-icon riseapefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于我
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/Music.html" title="我的音乐">
+            <i class="mdui-list-item-icon riseapefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                我的音乐
+            </div>
+        </a>
+        
+    </div>
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-14 15:48:59
+-->
+<aside id="riseape-sidebar">
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:16:49
+-->
+<div class="riseape-widget-wrap">
+    <div class="riseape-widget riseape-social">
+        <a class="mdui-ripple" href="/WX.html" target="_blank" mdui-tooltip="{content: '微信'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="riseapefont icon-wechat-fill"></i>
+        </a><a class="mdui-ripple" href="https://weibo.com/u/3128736793" target="_blank" mdui-tooltip="{content: '新浪微博'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="riseapefont icon-weibo"></i>
+        </a><a class="mdui-ripple" href="https://github.com/starm328" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="riseapefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:20:15
+-->
+
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-14 15:48:20
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">文章归档</h3>
+    <div class="riseape-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.riseape-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:15px;
+	color: #DDD;
+}
+</style>
+
+  
+  
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">最新文章</h3>
+    <div class="riseape-widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/11/index/">搭建一个Hexo博客，制作主题模板</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-14 15:36:22
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 09:23:58
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">网站资讯</h3>
+    <div class="riseape-widget">
+      <ul>
+        
+          <li>
+            <a class="item-name"> 本站总字数</a>
+            <span class="item-count"> 323</span>
+          </li>
+          <li>
+            <a class="item-name">本站访客数</a>
+            <span id="busuanzi_value_site_uv" class="item-count"></span>
+          </li>
+          <li>
+            <a class="item-name">本站总访问量</a>
+            <span id="busuanzi_value_site_pv" class="item-count"></span>
+          </li>
+      </ul>
+    </div>
+  </div>
+
+
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<style>
+  .riseape-widget .item-name{
+    padding: 14px 10px;
+    display: block;
+    color: #606266
+  }
+  .riseape-widget .item-count{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #000;
+  }
+  </style>
+  
+  
+</aside>
+    <div class="riseape-copyright">
+        &copy; 2020 starm
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </br>
+          本站上线：8天206小时
+    </div>
+</div><!-- .riseape-drawer -->
+<script>
+  let divTyping = document.getElementById('subtitle')
+  let i = 0,
+    timer = 0,
+    str = divTyping.innerText
+
+  function typing () {
+    if (i <= str.length) {
+      divTyping.innerHTML = str.slice(0, i++) + '_'
+      timer = setTimeout(typing, 200)
+    }
+    else {
+      i = 0
+      divTyping.innerHTML = str
+      timer = setTimeout(typing, 2000)
+
+    }
+  }
+
+  typing()
+</script>
+  </div>
+  <div id="riseape-content">
+
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 09:24:32
+-->
+<div class="riseape-primary">
+  <div class="riseape-post">
+    
+        <div class="riseape-post-cover">
+          <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="搭建一个Hexo博客，制作主题模板" class="lazyload">
+          <h1>
+            搭建一个Hexo博客，制作主题模板
+          </h1>
+        </div>
+    
+
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 10:17:24
+-->
+<div class="riseape-post-meta riseape-rainbow" style="margin:10px 0!important;">
+    <a><i class="mdui-icon material-icons">&#xe8df;</i>2020年12月11日 17:12:58</a>
+    <a><i class="mdui-icon material-icons">&#xe8e2;</i>323 字</a>
+    <a><i class="mdui-icon material-icons">&#xe192;</i>阅读约 1 分钟</a>
+    <a><i class="mdui-icon material-icons">remove_red_eye</i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次</a>
+</div>
+
+
+      <article>
+        <h2 id="hexo建站开始"><a href="#hexo建站开始" class="headerlink" title="hexo建站开始"></a>hexo建站开始</h2><h4 id="安装hexo-cli"><a href="#安装hexo-cli" class="headerlink" title="安装hexo-cli"></a>安装hexo-cli</h4><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g hexo-cli //全局安装hexo-cli
+hexo init hexotest //创建一个hexotest 项目
+<span class="token builtin class-name">cd</span> hexotest //进入到hexotest
+<span class="token function">npm</span> <span class="token function">install</span> //安装hexo依赖包</code></pre>
+<p>到这里我们一个简单的hexo博客就创建完成了<br>我们可以使用以下命令启动，在浏览器中通过localhost:4000查看<br><pre class="language-bash" data-language="bash"><code class="language-bash">hexo server</code></pre></p>
+<h2 id="创建自己的主题模板"><a href="#创建自己的主题模板" class="headerlink" title="创建自己的主题模板"></a>创建自己的主题模板</h2><p>在 themes下创建自己的主题目录 “riseape”</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>languages</td>
+<td>语言</td>
+</tr>
+<tr>
+<td>layout</td>
+<td>模板布局文件</td>
+</tr>
+<tr>
+<td>scripts</td>
+<td>脚本文件夹</td>
+</tr>
+<tr>
+<td>source</td>
+<td>静态资源</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="自定义页面布局"><a href="#自定义页面布局" class="headerlink" title="自定义页面布局"></a>自定义页面布局</h2><p>在<code>layout</code>目录下创建<code>test.ejs</code> 模板文件<br><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">&lt;</span>div <span class="token assign-left variable">class</span><span class="token operator">=</span><span class="token string">"riseape-primary"</span><span class="token operator">></span>
+  <span class="token operator">&lt;</span>div <span class="token assign-left variable">class</span><span class="token operator">=</span><span class="token string">"riseape-post"</span><span class="token operator">></span>
+      <span class="token operator">&lt;</span>%- page.content %<span class="token operator">></span>
+  <span class="token operator">&lt;</span>/div<span class="token operator">></span>
+<span class="token operator">&lt;</span>/div<span class="token operator">></span>
+</code></pre></p>
+<p>然后再在根目录下的 <code>source</code> 中创建一个 <code>test.md</code> 页面文件,设置layout 指向 test 模板<br><pre class="language-bash" data-language="bash"><code class="language-bash">---
+title: 自定义页面
+layout: <span class="token builtin class-name">test</span>
+permalink: test.html
+---</code></pre></p>
+<h2 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="配置 _config.yml"></a>配置 _config.yml</h2><pre class="language-bash" data-language="bash"><code class="language-bash">theme: riseage //配置自定义主题</code></pre>
+<p>配置好主题，我们就开始来启动项目，自定义自己的主题模板吧，我是通过分析默认的模板，如何渲染数据。然后找的网上的一些模板，查看他们开源的github上面的代码，然后自己跟着敲。<br>最后制作出自己喜欢的风格主题</p>
+<blockquote>
+<p>坚持学习 — 学的不仅是技术，更是梦想！！！</p>
+</blockquote>
+
+      </article>
+      <div class="riseape-post-meta riseape-rainbow">
+    
+    
+</div>
+      
+
+      <nav class="mdui-theme-layout-dark mdui-color-transparent mdui-row mdui-m-b-2">
+        
+        
+      </nav>
+
+      
+        <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:13:49
+-->
+
+  <div class="riseape-post-copyright">
+    <strong>本文作者：</strong>starm<br>
+    <strong>本文链接：</strong><a href="http://example.com/2020/12/11/index/" title="http:&#x2F;&#x2F;example.com&#x2F;2020&#x2F;12&#x2F;11&#x2F;index&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2020&#x2F;12&#x2F;11&#x2F;index&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+      
+
+
+  </div>
+
+</div>
+
+  <div class="riseape-post-right">
+    <div class="riseape-fixed">
+      <div class="riseape-valign">
+        <div class="riseape-toc">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo%E5%BB%BA%E7%AB%99%E5%BC%80%E5%A7%8B"><span class="toc-number">1.</span> <span class="toc-text">hexo建站开始</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85hexo-cli"><span class="toc-number">1.0.1.</span> <span class="toc-text">安装hexo-cli</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%BB%E9%A2%98%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.</span> <span class="toc-text">创建自己的主题模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80"><span class="toc-number">3.</span> <span class="toc-text">自定义页面布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-config-yml"><span class="toc-number">4.</span> <span class="toc-text">配置 _config.yml</span></a></li></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<style lang="">
+.riseape-post .prev{
+    color:#000
+  }
+.riseape-post .next{
+    color:#000
+  }
+.riseape-post .prev:hover,.riseape-post .next:hover{
+    background-color: rgba(000,000,000,0.2) !important;
+  }
+</style>
+
+  </div>
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-09 13:55:13
+-->
+<script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ <script src="/js/app.js?v=1608271790009"></script>
+
+
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>
