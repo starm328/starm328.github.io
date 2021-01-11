@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+
+<html >
+
+<head>
+  
+  <title>封装一个axios - RiseApe</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="undefined">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5,user-scalble=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css" integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
+    integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css"> -->
+  <link rel="stylesheet" href="/css/style.css?v=1610351069344">
+  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1610351069344">
+  <script>
+    var preloader = {
+      endLoading: () => {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      },
+      initLoading: () => {
+        document.body.style.overflow = '';
+        document.getElementById('loading-box').classList.remove("loaded")
+
+      }
+    }
+    window.addEventListener('load', () => { preloader.endLoading() })
+  </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  <div id="loading-box">
+    <div class="loading-left-bg"></div>
+    <div class="loading-right-bg"></div>
+    <div class="spinner-box">
+      <div class="configure-border-1">
+        <div class="configure-core"></div>
+      </div>
+      <div class="configure-border-2">
+        <div class="configure-core"></div>
+      </div>
+      <div class="loading-word">加载中...</div>
+    </div>
+  </div>
+  <div id="riseape-background">
+    <div class="riseape-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i
+            class="mdui-icon material-icons">&#xe3c7;</i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="/" title="starm" class="mdui-btn mdui-btn-icon"><img
+            src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" alt="starm"></a>
+      </div>
+    </div>
+  </div>
+  <div id="riseape-header">
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-18 10:34:53
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 13:42:50
+-->
+<div class="riseape-drawer mdui-drawer" id="drawer">
+     <div class="riseape-avatar mdui-ripple">
+        <a href="/" title="starm">
+            <img src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" alt="starm" alt="starm">
+        </a>
+    </div>
+    <p class="riseape-submit" id="subtitle">心向大海,随遇而安</p>
+    <div class="riseape-count">
+        <div><span>文章</span>2</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="riseape-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon riseapefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/archives.html" title="里程碑">
+            <i class="mdui-list-item-icon riseapefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                里程碑
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的邻居">
+            <i class="mdui-list-item-icon riseapefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的邻居
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/About.html" title="关于我">
+            <i class="mdui-list-item-icon riseapefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于我
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/Music.html" title="我的音乐">
+            <i class="mdui-list-item-icon riseapefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                我的音乐
+            </div>
+        </a>
+        
+    </div>
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-14 15:48:59
+-->
+<aside id="riseape-sidebar">
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:16:49
+-->
+<div class="riseape-widget-wrap">
+    <div class="riseape-widget riseape-social">
+        <a class="mdui-ripple" href="/WX.html" target="_blank" mdui-tooltip="{content: '微信'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="riseapefont icon-wechat-fill"></i>
+        </a><a class="mdui-ripple" href="https://weibo.com/u/3128736793" target="_blank" mdui-tooltip="{content: '新浪微博'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="riseapefont icon-weibo"></i>
+        </a><a class="mdui-ripple" href="https://github.com/starm328" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="riseapefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:20:15
+-->
+
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-14 15:48:20
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">文章归档</h3>
+    <div class="riseape-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.riseape-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:15px;
+	color: #DDD;
+}
+</style>
+
+  
+  
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">最新文章</h3>
+    <div class="riseape-widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/01/11/vue/axios/">封装一个axios</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/18/index/">搭建一个Hexo博客，制作主题模板</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-14 15:36:22
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 09:23:58
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">网站资讯</h3>
+    <div class="riseape-widget">
+      <ul>
+        
+          <li>
+            <a class="item-name"> 本站总字数</a>
+            <span class="item-count"> 1k</span>
+          </li>
+          <li>
+            <a class="item-name">本站访客数</a>
+            <span id="busuanzi_value_site_uv" class="item-count"></span>
+          </li>
+          <li>
+            <a class="item-name">本站总访问量</a>
+            <span id="busuanzi_value_site_pv" class="item-count"></span>
+          </li>
+      </ul>
+    </div>
+  </div>
+
+
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<style>
+  .riseape-widget .item-name{
+    padding: 14px 10px;
+    display: block;
+    color: #606266
+  }
+  .riseape-widget .item-count{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #000;
+  }
+  </style>
+  
+  
+</aside>
+    <div class="riseape-copyright">
+        &copy; 2021 starm
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </br>
+          本站上线：32天783小时
+    </div>
+</div><!-- .riseape-drawer -->
+<script>
+  let divTyping = document.getElementById('subtitle')
+  let i = 0,
+    timer = 0,
+    str = divTyping.innerText
+
+  function typing () {
+    if (i <= str.length) {
+      divTyping.innerHTML = str.slice(0, i++) + '_'
+      timer = setTimeout(typing, 200)
+    }
+    else {
+      i = 0
+      divTyping.innerHTML = str
+      timer = setTimeout(typing, 2000)
+
+    }
+  }
+
+  typing()
+</script>
+  </div>
+  <div id="riseape-content">
+
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2021-01-11 15:43:05
+-->
+<div class="riseape-primary">
+  <div class="riseape-post">
+    
+      <div class="riseape-post-cover">
+        <img data-src="https://cn.vuejs.org/images/logo.png" data-sizes="auto" alt="封装一个axios" class="lazyload">
+        <h1 id="title">
+          封装一个axios
+        </h1>
+      </div>
+      
+
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 10:17:24
+-->
+<div class="riseape-post-meta riseape-rainbow" style="margin:10px 0!important;">
+    <a><i class="mdui-icon material-icons">&#xe8df;</i>2021年01月11日 15:01:64</a>
+    <a><i class="mdui-icon material-icons">&#xe8e2;</i>682 字</a>
+    <a><i class="mdui-icon material-icons">&#xe192;</i>阅读约 3 分钟</a>
+    <a><i class="mdui-icon material-icons">remove_red_eye</i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次</a>
+</div>
+
+
+      <article>
+        <h2 id="1、设置baseURl，创建config-js文件"><a href="#1、设置baseURl，创建config-js文件" class="headerlink" title="1、设置baseURl，创建config.js文件"></a>1、设置baseURl，创建config.js文件</h2><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">const</span> baseUrl <span class="token operator">=</span> location<span class="token punctuation">.</span>protocol <span class="token operator">+</span> <span class="token string">'//localhost'</span>  <span class="token comment">//项目域名</span>
+<span class="token keyword">const</span> environment <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">===</span> <span class="token string">'production'</span> <span class="token operator">?</span> <span class="token string">'pro'</span> <span class="token operator">:</span> <span class="token string">'dev'</span> <span class="token comment">//dev开发环境  pro 生产环境</span>
+<span class="token keyword">let</span> exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token comment">// 开发环境</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span>environment <span class="token operator">===</span> <span class="token string">'dev'</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    proxyBaseUrl<span class="token operator">:</span><span class="token string">'/api'</span><span class="token punctuation">,</span>
+    fyBaseUrl<span class="token operator">:</span><span class="token string">'/apis'</span> <span class="token comment">//防疫接口</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token comment">// 线上环境</span>
+<span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>environment <span class="token operator">===</span> <span class="token string">'pro'</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 项目使用到多个域名，可以进行多个入口配置</span>
+    proxyBaseUrl<span class="token operator">:</span>location<span class="token punctuation">.</span>protocol <span class="token operator">+</span> <span class="token string">'//localhost'</span><span class="token punctuation">,</span> <span class="token comment">// 应用1</span>
+    fyBaseUrl<span class="token operator">:</span>location<span class="token punctuation">.</span>protocol <span class="token operator">+</span> <span class="token string">'//localhost'</span> <span class="token comment">//应用2</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> exports</code></pre>
+<h2 id="2、创建service-js"><a href="#2、创建service-js" class="headerlink" title="2、创建service.js"></a>2、创建service.js</h2><p>配置axios,全局设置请求信息和错误信息处理<br><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span>
+<span class="token keyword">import</span> router <span class="token keyword">from</span> <span class="token string">'./../router'</span> 
+<span class="token keyword">const</span> <span class="token function-variable function">showStatus</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">status</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> message <span class="token operator">=</span> <span class="token string">''</span>
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">case</span> <span class="token number">400</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'请求错误(400)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">case</span> <span class="token number">401</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'未授权，请重新登录(401)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">case</span> <span class="token number">402</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'拒绝访问(402)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">case</span> <span class="token number">404</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'请求出错(404)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">case</span> <span class="token number">408</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'请求超时(408)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">case</span> <span class="token number">500</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'服务器错误(500)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">case</span> <span class="token number">501</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'服务未实现(501)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">case</span> <span class="token number">502</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'网络错误(502)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">case</span> <span class="token number">503</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'服务不可用(503)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">case</span> <span class="token number">504</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'网络超时(504)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">case</span> <span class="token number">505</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token string">'HTTP版本不受支持(505)'</span>
+      <span class="token keyword">break</span>
+    <span class="token keyword">default</span><span class="token operator">:</span>
+      message <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">连接出错(</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>status<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">)!</span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>message<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">，请检查网络或联系管理员！</span><span class="token template-punctuation string">`</span></span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">const</span> service <span class="token operator">=</span> axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token comment">// 联调</span>
+  
+  headers<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    get<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string">'Content-Type'</span><span class="token operator">:</span> <span class="token string">'application/x-www-form-urlencoded;charset=utf-8'</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    post<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string">'Content-Type'</span><span class="token operator">:</span> <span class="token string">'application/x-www-form-urlencoded;charset=utf-8'</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token comment">// 是否跨站点访问控制请求</span>
+  withCredentials<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  timeout<span class="token operator">:</span> <span class="token number">30000</span><span class="token punctuation">,</span>
+  <span class="token function">validateStatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 使用async-await，处理reject情况较为繁琐，所以全部返回resolve，在业务代码中处理异常</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 请求拦截器</span>
+service<span class="token punctuation">.</span>interceptors<span class="token punctuation">.</span>request<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>
+  <span class="token parameter">config</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> config
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    err<span class="token punctuation">.</span>message <span class="token operator">=</span> <span class="token string">'服务器异常，请联系管理员！'</span>
+    <span class="token comment">// 错误抛到业务代码</span>
+    <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 响应拦截器</span>
+service<span class="token punctuation">.</span>interceptors<span class="token punctuation">.</span>response<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>
+  <span class="token parameter">response</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> status <span class="token operator">=</span> response<span class="token punctuation">.</span>status
+    <span class="token keyword">let</span> msg <span class="token operator">=</span> <span class="token string">''</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">&lt;</span> <span class="token number">200</span> <span class="token operator">||</span> status <span class="token operator">>=</span> <span class="token number">300</span> <span class="token operator">&amp;&amp;</span> status <span class="token operator">!=</span> <span class="token number">401</span> <span class="token operator">&amp;&amp;</span> status <span class="token operator">!=</span> <span class="token number">500</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// 处理http错误，抛到业务代码</span>
+      msg <span class="token operator">=</span> <span class="token function">showStatus</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> response<span class="token punctuation">.</span>data <span class="token operator">===</span> <span class="token string">'string'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        response<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token punctuation">&#123;</span> msg <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        response<span class="token punctuation">.</span>data<span class="token punctuation">.</span>msg <span class="token operator">=</span> msg
+      <span class="token punctuation">&#125;</span>
+      <span class="token keyword">return</span> response
+    <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>status <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> response
+    <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>status <span class="token operator">==</span> <span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+      msg <span class="token operator">=</span> <span class="token function">showStatus</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span>
+      response<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token punctuation">&#123;</span>msg<span class="token operator">:</span>msg<span class="token punctuation">&#125;</span>
+      router<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>name<span class="token operator">:</span><span class="token string">'exception'</span><span class="token punctuation">,</span>query<span class="token operator">:</span><span class="token punctuation">&#123;</span>type<span class="token operator">:</span><span class="token number">500</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+      <span class="token keyword">return</span> response 
+    <span class="token punctuation">&#125;</span>
+    
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+    err<span class="token punctuation">.</span>message <span class="token operator">=</span>  <span class="token string">'请求超时或服务器异常，请检查网络或联系管理员！'</span>
+    <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> service</code></pre></p>
+<h2 id="3、创建接口请求文件"><a href="#3、创建接口请求文件" class="headerlink" title="3、创建接口请求文件"></a>3、创建接口请求文件</h2><p>不同区块的功能的数据，可以创建多个文件，便于区分和后期管理<br><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> config <span class="token keyword">from</span> <span class="token string">'./config'</span> <span class="token comment">// 基础路径</span>
+<span class="token keyword">import</span> service <span class="token keyword">from</span> <span class="token string">'./service'</span> <span class="token comment">//封装的axios</span>
+<span class="token comment">/**
+ * data 是post传参
+ *
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">Upload</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span><span class="token operator">=></span> <span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  url<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>config<span class="token punctuation">.</span>proxyBaseUrl<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">/user/upload</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  method<span class="token operator">:</span> <span class="token string">'POST'</span><span class="token punctuation">,</span>
+  data<span class="token operator">:</span> data<span class="token punctuation">,</span>
+  headers<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+   <span class="token comment">//这里可以单独设置headers</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre></p>
+<h2 id="4、使用请求文件获取数据"><a href="#4、使用请求文件获取数据" class="headerlink" title="4、使用请求文件获取数据"></a>4、使用请求文件获取数据</h2><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span>Upload<span class="token punctuation">&#125;</span> <span class="token keyword">from</span> 你的请求文件地址
+
+<span class="token function">Upload</span><span class="token punctuation">(</span>参数<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+  <span class="token comment">//返回的数据</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+  <span class="token comment">//错误信息</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
+      </article>
+      <div class="riseape-post-meta riseape-rainbow">
+    
+    
+</div>
+            
+      <!-- 这个元素用来承载生成的二维码 不显示 -->
+      <div id="qrcode" style="display: none"></div>
+
+      <!-- canvas 标签 主要用来进行图形的绘制-->
+      <canvas id="canvas" style="max-width:350px;width:100%;border-radius: 10px;overflow: hidden;;"></canvas>
+
+      <nav class="mdui-theme-layout-dark mdui-color-transparent mdui-row mdui-m-b-2">
+        
+        
+        <div class="mdui-col-xs-12"> <a
+            class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
+            style="max-width:100%" href="/2020/12/18/index/" data-pjax-state=""><i
+              class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>搭建一个Hexo博客，制作主题模板</a>
+        </div>
+        
+      </nav>
+
+      
+        <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:13:49
+-->
+
+  <div class="riseape-post-copyright">
+    <strong>本文作者：</strong>starm<br>
+    <strong>本文链接：</strong><a href="http://example.com/2021/01/11/vue/axios/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;01&#x2F;11&#x2F;vue&#x2F;axios&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;01&#x2F;11&#x2F;vue&#x2F;axios&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+      
+
+
+  </div>
+
+</div>
+
+  
+    <script type="text/javascript"src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="/js/qrcode.min.js?v=1610351069314"></script>
+
+    <script>
+      
+      let canvas = document.querySelector("#canvas");
+      canvas.width = 750;
+      canvas.height = 1080;
+      let qr = document.getElementById("qrcode");
+      let ctx = canvas.getContext("2d");
+      let img = new Image();
+      // 这里的第一张图片就是可以是你们的海报 这里注意绘制的顺序 我们要手动控制
+      img.src = 'https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg'
+      img.onload=function () {
+          ctx.drawImage(img,0,0,750,1960);
+          // 对二维码进行初始化
+          let qrcode = new QRCode(qr, {
+              width : 200,
+              height : 200,
+              margin : 10,
+              colorDark : "#000000",
+              colorLight : "#ffffff",
+          });
+          // 为二维码设置内容	
+          qrcode.makeCode(location.href);
+        // 我们的qrcode生成二维码之后也会有一个canvas对象我们获取到这个元素
+          let base64 = qr.firstChild.toDataURL("image/png",1);
+          // 这里的image只能在onload里面绘制 在外面就会被覆盖了 因为优先加载完毕就会优先绘制 然后就被之后绘制的海报背景遮挡了
+          let shareQr = new Image();
+          // 设置base64编码格式值
+          shareQr.src = base64;
+          shareQr.onload=function(){
+              // 绘制图像  就是绘制二维码到我们自己写的canvas中去
+              ctx.drawImage(shareQr,500,800,200,200);
+          };
+          // 绘制字体
+          ctx.font="28px 楷体";
+          ctx.lineWidth=1; 
+          var str = document.getElementById('title').innerText
+          var lineWidth = 0;
+          var canvasWidth = 750;//计算canvas的宽度
+          var initHeight=80;//绘制字体距离canvas顶部初始的高度
+          var lastSubStrIndex= 0; //每次开始截取的字符串的索引
+          for(let i=0;i<str.length;i++){ 
+              lineWidth+=ctx.measureText(str[i]).width; 
+              if(lineWidth>canvasWidth){  
+                  ctx.fillText(str.substring(lastSubStrIndex,i),30,initHeight);//绘制截取部分
+                  initHeight+=20;//20为字体的高度
+                  lineWidth=0;
+                  lastSubStrIndex=i;
+              } 
+              if(i==str.length-1){//绘制剩余部分
+                  ctx.fillText(str.substring(lastSubStrIndex,i+1),30,initHeight);
+              }
+          }
+      };
+
+
+
+</script>
+<style lang="">
+.riseape-post .prev{
+    color:#000
+  }
+.riseape-post .next{
+    color:#000
+  }
+.riseape-post .prev:hover,.riseape-post .next:hover{
+    background-color: rgba(000,000,000,0.2) !important;
+  }
+</style>
+
+  </div>
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-09 13:55:13
+-->
+<script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ <script src="/js/app.js?v=1610351069348"></script>
+
+
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>

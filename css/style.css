@@ -1324,6 +1324,7 @@ body {
 }
 #riseape-content .riseape-post-index a .riseape-post-cover img.lazyloaded {
   opacity: 1;
+  max-height: 220px;
 }
 #riseape-content .riseape-post-index a article {
   flex: 1;
