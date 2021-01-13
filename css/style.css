@@ -1043,7 +1043,7 @@ body {
   }
 }
 #riseape-background .riseape-bg {
-  opacity: 0.2;
+  opacity: 0.1;
   background-size: cover;
   filter: blur(30px);
   height: 100vh;
