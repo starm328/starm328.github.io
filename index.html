@@ -6,15 +6,15 @@
   
   <title>RiseApe</title>
   <meta charset="UTF-8">
-  <meta name="description" content="undefined">
+  <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5,user-scalble=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css" integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
     integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css"> -->
-  <link rel="stylesheet" href="/css/style.css?v=1610352066721">
-  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1610352066721">
+  <link rel="stylesheet" href="/css/style.css?v=1610529524007">
+  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1610529524007">
   <script>
     var preloader = {
       endLoading: () => {
@@ -46,7 +46,7 @@
     </div>
   </div>
   <div id="riseape-background">
-    <div class="riseape-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+    <div class="riseape-bg" style="background-image: url(http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg)"></div>
     <div class="mdui-appbar mdui-shadow-0">
       <div class="mdui-toolbar">
         <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i
@@ -75,8 +75,8 @@
     <p class="riseape-submit" id="subtitle">心向大海,随遇而安</p>
     <div class="riseape-count">
         <div><span>文章</span>2</div>
-        <div><span>标签</span>0</div>
-        <div><span>分类</span>0</div>
+        <div><span>标签</span>1</div>
+        <div><span>分类</span>1</div>
     </div>
     <div class="riseape-list mdui-list" mdui-collapse="{accordion: true}">
         
@@ -94,10 +94,10 @@
             </div>
         </a>
         
-        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的邻居">
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/bookmarks.html" title="我的收藏">
             <i class="mdui-list-item-icon riseapefont icon-unorderedlist"></i>
             <div class="mdui-list-item-content">
-                我的邻居
+                我的收藏
             </div>
         </a>
         
@@ -147,6 +147,13 @@
 </div>
   
   
+  <div class="riseape-widget-wrap">
+    <div id="randomtagcloud" class="riseape-widget tagcloud riseape-rainbow">
+      <a href="/tags/axios/" style="font-size: 10px;">axios</a>
+    </div>
+    
+  </div>
+
   
   <!--
  * @Descripttion: 
@@ -156,6 +163,30 @@
  * @LastEditors: starm
  * @LastEditTime: 2020-12-10 15:20:15
 -->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">文章分类</h3>
+    <div class="riseape-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/vue/">vue</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
 
 
   
@@ -257,7 +288,7 @@
         &copy; 2021 starm
         Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </br>
-          本站上线：32天16小时
+          本站上线：34天17小时
     </div>
 </div><!-- .riseape-drawer -->
 <script>
@@ -318,7 +349,7 @@
         <a href="/2020/12/18/index/"  class="mdui-ripple">
             
                 <div class="riseape-post-cover"> 
-                    <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="搭建一个Hexo博客，制作主题模板" class="lazyload">
+                    <img data-src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" data-sizes="auto" alt="搭建一个Hexo博客，制作主题模板" class="lazyload">
                 </div>
             
             <article>
@@ -354,25 +385,10 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
- <script src="/js/app.js?v=1610352066725"></script>
+ <script src="/js/app.js?v=1610529524009"></script>
 
 
   
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

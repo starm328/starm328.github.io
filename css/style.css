@@ -403,6 +403,24 @@ article li p {
 article dd {
   margin: 0 0 0 2em;
 }
+.xiangmu-table table {
+  width: 100%;
+  display: table;
+}
+@media screen and (max-width: 1024px) {
+  .xiangmu-table table {
+    width: auto;
+    display: inline-block;
+  }
+}
+.xiangmu-table table th {
+  font-weight: bold;
+  min-width: 100px;
+  text-align: left;
+}
+.xiangmu-table table td {
+  text-align: left;
+}
 article table {
   color: #5b6064;
   border-spacing: 0;
@@ -597,17 +615,24 @@ article.riseape-py ul {
 }
 article.riseape-py ul li {
   transition: all 0.03s;
-  width: calc(14.285714285714286% - 10px);
+  width: calc(8% - 10px);
   margin: 5px;
-  border-radius: 10px;
-  border: 1px solid #eee;
   font-size: 0;
-  overflow: hidden;
+}
+@media screen and (max-width: 1023px) {
 }
 article.riseape-py ul li > a {
   padding-top: 100%;
   display: block;
   position: relative;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+article.riseape-py ul li p {
+  color: #000;
+  font-size: 14px;
+  text-align: center;
 }
 article.riseape-py ul li > a:before {
   background-image: -moz-linear-gradient(to top, rgba(16,16,16,0.35) 25%, rgba(16,16,16,0) 100%);
@@ -1137,6 +1162,9 @@ body {
 #riseape-header .riseape-list .riseape-list-item.active i {
   color: #fff;
 }
+#riseape-header .riseape-list .riseape-list-item:hover {
+  background: rgba(117,117,117,0.12);
+}
 #riseape-header .riseape-list .riseape-list-item.active {
   opacity: 0.9;
   background: #07c160;
@@ -1571,7 +1599,6 @@ font.douyin {
 }
 .riseape-post-right .riseape-toc {
   margin-left: 16px;
-  width: 240px;
   text-align: left;
 }
 .riseape-post-right .riseape-toc a {

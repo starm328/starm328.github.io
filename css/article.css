@@ -303,6 +303,24 @@ article li p {
 article dd {
   margin: 0 0 0 2em;
 }
+.xiangmu-table table {
+  width: 100%;
+  display: table;
+}
+@media screen and (max-width: 1024px) {
+  .xiangmu-table table {
+    width: auto;
+    display: inline-block;
+  }
+}
+.xiangmu-table table th {
+  font-weight: bold;
+  min-width: 100px;
+  text-align: left;
+}
+.xiangmu-table table td {
+  text-align: left;
+}
 article table {
   color: #5b6064;
   border-spacing: 0;

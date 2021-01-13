@@ -11,17 +11,24 @@ article.riseape-py ul {
 }
 article.riseape-py ul li {
   transition: all 0.03s;
-  width: calc(14.285714285714286% - 10px);
+  width: calc(8% - 10px);
   margin: 5px;
-  border-radius: 10px;
-  border: 1px solid #eee;
   font-size: 0;
-  overflow: hidden;
+}
+@media screen and (max-width: 1023px) {
 }
 article.riseape-py ul li > a {
   padding-top: 100%;
   display: block;
   position: relative;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+article.riseape-py ul li p {
+  color: #000;
+  font-size: 14px;
+  text-align: center;
 }
 article.riseape-py ul li > a:before {
   background-image: -moz-linear-gradient(to top, rgba(16,16,16,0.35) 25%, rgba(16,16,16,0) 100%);
