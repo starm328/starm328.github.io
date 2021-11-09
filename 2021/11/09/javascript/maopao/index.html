@@ -4,7 +4,7 @@
 
 <head>
   
-  <title>搭建一个Hexo博客，制作主题模板 - RiseApe</title>
+  <title>Javascript事件冒泡机制 - RiseApe</title>
   <meta charset="UTF-8">
   <meta name="description" content="undefined">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5,user-scalble=no">
@@ -13,8 +13,8 @@
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
     integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css"> -->
-  <link rel="stylesheet" href="/css/style.css?v=1636420928070">
-  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1636420928070">
+  <link rel="stylesheet" href="/css/style.css?v=1636420928052">
+  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1636420928052">
   <script>
     var preloader = {
       endLoading: () => {
@@ -341,13 +341,13 @@
 <div class="riseape-primary">
   <div class="riseape-post">
     
-        <div class="riseape-post-cover">
-          <img data-src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" data-sizes="auto" alt="搭建一个Hexo博客，制作主题模板" class="lazyload">
-          <h1 id="title">
-            搭建一个Hexo博客，制作主题模板
-          </h1>
-        </div>
-    
+      <div class="riseape-post-cover">
+        <img data-src="https://cn.vuejs.org/images/logo.png" data-sizes="auto" alt="Javascript事件冒泡机制" class="lazyload">
+        <h1 id="title">
+          Javascript事件冒泡机制
+        </h1>
+      </div>
+      
 
     <!--
  * @Descripttion: 
@@ -358,68 +358,64 @@
  * @LastEditTime: 2020-12-18 10:17:24
 -->
 <div class="riseape-post-meta riseape-rainbow" style="margin:10px 0!important;">
-    <a><i class="mdui-icon material-icons">&#xe8df;</i>2020年12月18日 10:12:35</a>
-    <a><i class="mdui-icon material-icons">&#xe8e2;</i>323 字</a>
-    <a><i class="mdui-icon material-icons">&#xe192;</i>阅读约 1 分钟</a>
+    <a><i class="mdui-icon material-icons">&#xe8df;</i>2021年11月09日 09:11:57</a>
+    <a><i class="mdui-icon material-icons">&#xe8e2;</i>700 字</a>
+    <a><i class="mdui-icon material-icons">&#xe192;</i>阅读约 3 分钟</a>
     <a><i class="mdui-icon material-icons">remove_red_eye</i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次</a>
 </div>
 
 
       <article>
-        <h2 id="hexo建站开始"><a href="#hexo建站开始" class="headerlink" title="hexo建站开始"></a>hexo建站开始</h2><h4 id="安装hexo-cli"><a href="#安装hexo-cli" class="headerlink" title="安装hexo-cli"></a>安装hexo-cli</h4><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g hexo-cli //全局安装hexo-cli
-hexo init hexotest //创建一个hexotest 项目
-<span class="token builtin class-name">cd</span> hexotest //进入到hexotest
-<span class="token function">npm</span> <span class="token function">install</span> //安装hexo依赖包</code></pre>
-<p>到这里我们一个简单的hexo博客就创建完成了<br>我们可以使用以下命令启动，在浏览器中通过localhost:4000查看<br><pre class="language-bash" data-language="bash"><code class="language-bash">hexo server</code></pre></p>
-<h2 id="创建自己的主题模板"><a href="#创建自己的主题模板" class="headerlink" title="创建自己的主题模板"></a>创建自己的主题模板</h2><p>在 themes下创建自己的主题目录 “riseape”</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>目录</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>languages</td>
-<td>语言</td>
-</tr>
-<tr>
-<td>layout</td>
-<td>模板布局文件</td>
-</tr>
-<tr>
-<td>scripts</td>
-<td>脚本文件夹</td>
-</tr>
-<tr>
-<td>source</td>
-<td>静态资源</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="自定义页面布局"><a href="#自定义页面布局" class="headerlink" title="自定义页面布局"></a>自定义页面布局</h2><p>在<code>layout</code>目录下创建<code>test.ejs</code> 模板文件<br><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">&lt;</span>div <span class="token assign-left variable">class</span><span class="token operator">=</span><span class="token string">"riseape-primary"</span><span class="token operator">></span>
-  <span class="token operator">&lt;</span>div <span class="token assign-left variable">class</span><span class="token operator">=</span><span class="token string">"riseape-post"</span><span class="token operator">></span>
-      <span class="token operator">&lt;</span>%- page.content %<span class="token operator">></span>
-  <span class="token operator">&lt;</span>/div<span class="token operator">></span>
-<span class="token operator">&lt;</span>/div<span class="token operator">></span>
-</code></pre></p>
-<p>然后再在根目录下的 <code>source</code> 中创建一个 <code>test.md</code> 页面文件,设置layout 指向 test 模板<br><pre class="language-bash" data-language="bash"><code class="language-bash">---
-title: 自定义页面
-layout: <span class="token builtin class-name">test</span>
-permalink: test.html
----</code></pre></p>
-<h2 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="配置 _config.yml"></a>配置 _config.yml</h2><pre class="language-bash" data-language="bash"><code class="language-bash">theme: riseage //配置自定义主题</code></pre>
-<p>配置好主题，我们就开始来启动项目，自定义自己的主题模板吧，我是通过分析默认的模板，如何渲染数据。然后找的网上的一些模板，查看他们开源的github上面的代码，然后自己跟着敲。<br>最后制作出自己喜欢的风格主题</p>
-<blockquote>
-<p>坚持学习 — 学的不仅是技术，更是梦想！！！</p>
-</blockquote>
+        <h2 id="冒泡型事件："><a href="#冒泡型事件：" class="headerlink" title="冒泡型事件："></a>冒泡型事件：</h2><p>事件按照从最特定的 事件目标到最不特定的事件目标 (document对象)的顺序触发。 </p>
+<h2 id="捕获型事件："><a href="#捕获型事件：" class="headerlink" title="捕获型事件："></a>捕获型事件：</h2><p>事件从最不精确的对象(document 对象)开始触发，然后到最精确。(也可以在窗口级别捕获 事件，不过必须由开发人员特别指定)。 </p>
+<p>支持W3C标准的浏览器在添加事件时 用addEventListener(event,fn,useCapture)方法， 基中第3个参数useCapture是一个Boolean值， 用来设置事件是在事件捕获时执行， 还是事件冒泡时执行。</p>
+<p>而不兼容W3C的浏览器(IE)用attachEvent()方法， 此方法没有相关设置， 不过IE的事件模型默认是在事件冒泡时执行的， 也就是在useCapture等于false的时候执行， 所以把在处理事件时把useCapture 设置为false是比较安全， 也实现兼容浏览器的效果。<br>如下图所示：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1d872d88763b4233abb7d39fb3cd7565~tplv-k3u1fbpfcp-watermark.image?" alt="image.png" class="lazyload"></p>
+<h2 id="案例分析："><a href="#案例分析：" class="headerlink" title="案例分析："></a>案例分析：</h2><p>下面通过一个简单的案例阐述冒泡原理：<br>定义一个html, 里面有三个简单的dom 元素：div1,div2, span，div2包含span，div1 包含div2；而它们都在body 下：<br><pre class="language-html" data-language="html"><code class="language-html">
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>body<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>box1<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>box1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>box2<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>box2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>span<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>This is a span.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span></code></pre></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0cb6140ff0ec407e831466923fea19c9~tplv-k3u1fbpfcp-watermark.image?" alt="image.png" class="lazyload"></p>
+<p>在这个基础上，我们实现下面的功能：</p>
+<h4 id="a-body添加-click-事件监听，当body捕获到event事件时，打印出事件发生的时间和-触发事件的节点信息："><a href="#a-body添加-click-事件监听，当body捕获到event事件时，打印出事件发生的时间和-触发事件的节点信息：" class="headerlink" title="a.body添加 click 事件监听，当body捕获到event事件时，打印出事件发生的时间和 触发事件的节点信息："></a><strong>a.body添加 click 事件监听，当body捕获到event事件时，打印出事件发生的时间和 触发事件的节点信息：</strong></h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">></span>
+	window<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"body"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">,</span>eventHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">function</span> <span class="token function">eventHandler</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"时间："</span><span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>timeStamp<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">" 产生事件的节点："</span> <span class="token operator">+</span> event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>id <span class="token operator">+</span><span class="token string">"  当前节点："</span><span class="token operator">+</span>event<span class="token punctuation">.</span>currentTarget<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
+<p>当我们依次点击 span  box2  box1 body后 ，控制台会输出一下信息：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ff8bd258294b46fbb72e2e6eb2a79145~tplv-k3u1fbpfcp-watermark.image?" alt="image.png" class="lazyload"></p>
+<p>无论我们点击那个元素，都会产生click事件，并且body都会捕获到。然后调用函数事件。这就像水泡一样，从底网上冒，直到最上面。</p>
+<p>遇到这种情况，我们经常有一个常用方法，就是阻止冒泡<br>阻止冒泡事件</p>
+<p>在点击span的时候，不想他再往上冒泡，怎么办？对于某个节点而言，如果我们不想它现在处理的事件继续往上冒泡的话，我们可以终止冒泡，在对应的处理函数内，加入event.stopPropagation(),终止事件的广播分发，这样事件停留在本节点，不会再往外传播了，得出：</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">></span>
+	window<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"span"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'我是最里层 span '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    event<span class="token punctuation">.</span><span class="token function">stopPropagation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"box2"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'我是box2层 '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    event<span class="token punctuation">.</span><span class="token function">stopPropagation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	 
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
+<p>经过这样一段代码，点击最里层元素，不会再冒泡，执行到最外层的事件了。</p>
 
       </article>
       <div class="riseape-post-meta riseape-rainbow">
     
+        <a class="riseapefont icon-appstore-fill -link" href="/categories/javascript/">javascript</a>
+    
+    
+        <a class="riseapefont icon-tag-fill -none-link" href="/tags/javascript/" rel="tag">javascript</a>
     
 </div>
             
@@ -431,14 +427,12 @@ permalink: test.html
 
       <nav class="mdui-theme-layout-dark mdui-color-transparent mdui-row mdui-m-b-2">
         
-        <div class="mdui-col-xs-12 mdui-m-b-2"> 
-          <a
-            class="extend prev mdui-btn mdui-ripple mdui-float-left mdui-text-truncate" rel="prev"
-            style="max-width:100%" href="/2021/01/11/vue/axios/" data-pjax-state=""><i
-              class="mdui-icon mdui-icon-left material-icons">arrow_back</i> 封装一个axios</a>
-
-        </div>
         
+        <div class="mdui-col-xs-12"> <a
+            class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
+            style="max-width:100%" href="/2021/11/09/vue/daping/" data-pjax-state=""><i
+              class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>Vue大屏数据展示</a>
+        </div>
         
       </nav>
 
@@ -454,7 +448,7 @@ permalink: test.html
 
   <div class="riseape-post-copyright">
     <strong>本文作者：</strong>starm<br>
-    <!-- <strong>本文链接：</strong><a href="http://example.com/2020/12/18/index/" title="http:&#x2F;&#x2F;example.com&#x2F;2020&#x2F;12&#x2F;18&#x2F;index&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2020&#x2F;12&#x2F;18&#x2F;index&#x2F;</a><br> -->
+    <!-- <strong>本文链接：</strong><a href="http://example.com/2021/11/09/javascript/maopao/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;11&#x2F;09&#x2F;javascript&#x2F;maopao&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;11&#x2F;09&#x2F;javascript&#x2F;maopao&#x2F;</a><br> -->
     
       <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
     
@@ -472,7 +466,7 @@ permalink: test.html
     <div class="riseape-fixed">
       <div class="riseape-valign">
         <div class="riseape-toc">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo%E5%BB%BA%E7%AB%99%E5%BC%80%E5%A7%8B"><span class="toc-number">1.</span> <span class="toc-text">hexo建站开始</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85hexo-cli"><span class="toc-number">1.0.1.</span> <span class="toc-text">安装hexo-cli</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%BB%E9%A2%98%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.</span> <span class="toc-text">创建自己的主题模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80"><span class="toc-number">3.</span> <span class="toc-text">自定义页面布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-config-yml"><span class="toc-number">4.</span> <span class="toc-text">配置 _config.yml</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E5%9E%8B%E4%BA%8B%E4%BB%B6%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">冒泡型事件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%95%E8%8E%B7%E5%9E%8B%E4%BA%8B%E4%BB%B6%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">捕获型事件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">案例分析：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-body%E6%B7%BB%E5%8A%A0-click-%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%EF%BC%8C%E5%BD%93body%E6%8D%95%E8%8E%B7%E5%88%B0event%E4%BA%8B%E4%BB%B6%E6%97%B6%EF%BC%8C%E6%89%93%E5%8D%B0%E5%87%BA%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E7%9A%84%E6%97%B6%E9%97%B4%E5%92%8C-%E8%A7%A6%E5%8F%91%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%8A%82%E7%82%B9%E4%BF%A1%E6%81%AF%EF%BC%9A"><span class="toc-number">3.0.1.</span> <span class="toc-text">a.body添加 click 事件监听，当body捕获到event事件时，打印出事件发生的时间和 触发事件的节点信息：</span></a></li></ol></li></ol></li></ol>
         </div>
       </div>
     </div>
@@ -480,7 +474,7 @@ permalink: test.html
   
   
     <script type="text/javascript"src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-    <script src="/js/qrcode.min.js?v=1636420927981"></script>
+    <script src="/js/qrcode.min.js?v=1636420927946"></script>
 
     <script>
       var toc = document.getElementsByClassName('toc-link')
@@ -578,7 +572,7 @@ permalink: test.html
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
- <script src="/js/app.js?v=1636420928076"></script>
+ <script src="/js/app.js?v=1636420928057"></script>
 
 
   
