@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+
+<html >
+
+<head>
+  
+  <title>Vue大屏数据展示 - RiseApe</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="undefined">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5,user-scalble=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css" integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
+    integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css"> -->
+  <link rel="stylesheet" href="/css/style.css?v=1636420458401">
+  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1636420458401">
+  <script>
+    var preloader = {
+      endLoading: () => {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      },
+      initLoading: () => {
+        document.body.style.overflow = '';
+        document.getElementById('loading-box').classList.remove("loaded")
+
+      }
+    }
+    window.addEventListener('load', () => { preloader.endLoading() })
+  </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  <div id="loading-box">
+    <div class="loading-left-bg"></div>
+    <div class="loading-right-bg"></div>
+    <div class="spinner-box">
+      <div class="configure-border-1">
+        <div class="configure-core"></div>
+      </div>
+      <div class="configure-border-2">
+        <div class="configure-core"></div>
+      </div>
+      <div class="loading-word">加载中...</div>
+    </div>
+  </div>
+  <div id="riseape-background">
+    <div class="riseape-bg" style="background-image: url(http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i
+            class="mdui-icon material-icons">&#xe3c7;</i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="/" title="starm" class="mdui-btn mdui-btn-icon"><img
+            src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" alt="starm"></a>
+      </div>
+    </div>
+  </div>
+  <div id="riseape-header">
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-18 10:34:53
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 13:42:50
+-->
+<div class="riseape-drawer mdui-drawer" id="drawer">
+     <div class="riseape-avatar mdui-ripple">
+        <a href="/" title="starm">
+            <img src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" alt="starm" alt="starm">
+        </a>
+    </div>
+    <p class="riseape-submit" id="subtitle">心向大海,随遇而安</p>
+    <div class="riseape-count">
+        <div><span>文章</span>3</div>
+        <div><span>标签</span>2</div>
+        <div><span>分类</span>1</div>
+    </div>
+    <div class="riseape-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon riseapefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/archives.html" title="里程碑">
+            <i class="mdui-list-item-icon riseapefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                里程碑
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/bookmarks.html" title="我的收藏">
+            <i class="mdui-list-item-icon riseapefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的收藏
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/About.html" title="关于我">
+            <i class="mdui-list-item-icon riseapefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于我
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/Music.html" title="我的音乐">
+            <i class="mdui-list-item-icon riseapefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                我的音乐
+            </div>
+        </a>
+        
+    </div>
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-14 15:48:59
+-->
+<aside id="riseape-sidebar">
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:16:49
+-->
+<div class="riseape-widget-wrap">
+    <div class="riseape-widget riseape-social">
+        <a class="mdui-ripple" href="/WX.html" target="_blank" mdui-tooltip="{content: '微信'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="riseapefont icon-wechat-fill"></i>
+        </a><a class="mdui-ripple" href="https://weibo.com/u/3128736793" target="_blank" mdui-tooltip="{content: '新浪微博'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="riseapefont icon-weibo"></i>
+        </a><a class="mdui-ripple" href="https://github.com/starm328" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="riseapefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="riseape-widget-wrap">
+    <div id="randomtagcloud" class="riseape-widget tagcloud riseape-rainbow">
+      <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a>
+    </div>
+    
+  </div>
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:20:15
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">文章分类</h3>
+    <div class="riseape-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/vue/">vue</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-14 15:48:20
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">文章归档</h3>
+    <div class="riseape-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.riseape-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:15px;
+	color: #DDD;
+}
+</style>
+
+  
+  
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">最新文章</h3>
+    <div class="riseape-widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/09/vue/daping/">Vue大屏数据展示</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/11/vue/axios/">封装一个axios</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/18/index/">搭建一个Hexo博客，制作主题模板</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-14 15:36:22
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 09:23:58
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">网站资讯</h3>
+    <div class="riseape-widget">
+      <ul>
+        
+          <li>
+            <a class="item-name"> 本站总字数</a>
+            <span class="item-count"> 1.7k</span>
+          </li>
+          <li>
+            <a class="item-name">本站访客数</a>
+            <span id="busuanzi_value_site_uv" class="item-count"></span>
+          </li>
+          <li>
+            <a class="item-name">本站总访问量</a>
+            <span id="busuanzi_value_site_pv" class="item-count"></span>
+          </li>
+      </ul>
+    </div>
+  </div>
+
+
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<style>
+  .riseape-widget .item-name{
+    padding: 14px 10px;
+    display: block;
+    color: #606266
+  }
+  .riseape-widget .item-count{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #000;
+  }
+  </style>
+  
+  
+</aside>
+    <div class="riseape-copyright">
+        &copy; 2021 starm
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </br>
+          本站上线：334天9小时
+    </div>
+</div><!-- .riseape-drawer -->
+<script>
+  let divTyping = document.getElementById('subtitle')
+  let i = 0,
+    timer = 0,
+    str = divTyping.innerText
+
+  function typing () {
+    if (i <= str.length) {
+      divTyping.innerHTML = str.slice(0, i++) + '_'
+      timer = setTimeout(typing, 200)
+    }
+    else {
+      i = 0
+      divTyping.innerHTML = str
+      timer = setTimeout(typing, 2000)
+
+    }
+  }
+
+  typing()
+</script>
+  </div>
+  <div id="riseape-content">
+
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2021-01-13 15:01:35
+-->
+<div class="riseape-primary">
+  <div class="riseape-post">
+    
+      <div class="riseape-post-cover">
+        <img data-src="https://cn.vuejs.org/images/logo.png" data-sizes="auto" alt="Vue大屏数据展示" class="lazyload">
+        <h1 id="title">
+          Vue大屏数据展示
+        </h1>
+      </div>
+      
+
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 10:17:24
+-->
+<div class="riseape-post-meta riseape-rainbow" style="margin:10px 0!important;">
+    <a><i class="mdui-icon material-icons">&#xe8df;</i>2021年11月09日 09:11:88</a>
+    <a><i class="mdui-icon material-icons">&#xe8e2;</i>660 字</a>
+    <a><i class="mdui-icon material-icons">&#xe192;</i>阅读约 3 分钟</a>
+    <a><i class="mdui-icon material-icons">remove_red_eye</i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次</a>
+</div>
+
+
+      <article>
+        <p>高效实现需求，避免臃肿的组件库和重复造轮子，前段时间做了很多大屏展示类的项目，今天来跟大家分享一下，大屏的实践过程，最开始我是使用了dataview 这个组件库，然后发现是自己并不需要它太多的封装好的组件，而且在移动端，有样式错乱的问题。所以自己看了他的实现方式，搞了一个大屏自适应的组件。话不多说，直接上效果图：</p>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0a3338a2f7224e21b8d4bea0d3125b86~tplv-k3u1fbpfcp-watermark.image?" alt="image.png" class="lazyload"></p>
+<p>需要适配所有尺寸的大型显示屏，并且在手机上，可以缩放查看效果。我这里添加了这样一段代码，通过缩放body的大小，进行等比例放大缩小，达到不变形，整体适配的效果。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>script<span class="token operator">></span>
+       <span class="token comment">//页面缩放公共</span>
+       <span class="token keyword">function</span> <span class="token function">resizePage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+         <span class="token comment">// 获取window的高度</span>
+         <span class="token keyword">var</span> clientW <span class="token operator">=</span> window<span class="token punctuation">.</span>innerWidth
+         <span class="token keyword">var</span> clientH <span class="token operator">=</span> window<span class="token punctuation">.</span>innerHeight
+         <span class="token comment">// 初始window与body的比值</span>
+         <span class="token keyword">var</span> bi <span class="token operator">=</span>  clientW <span class="token operator">/</span> <span class="token number">1920</span>
+         <span class="token comment">// 设置body的宽高-可根据实际情况进行调节</span>
+         document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token string">"1920px"</span>
+         document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">"1080px"</span>
+         document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>style<span class="token punctuation">.</span>transform <span class="token operator">=</span><span class="token string">'scale('</span> <span class="token operator">+</span> bi <span class="token operator">+</span> <span class="token string">','</span> <span class="token operator">+</span> bi <span class="token operator">+</span> <span class="token string">')'</span>
+         document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>style<span class="token punctuation">.</span>transformOrigin <span class="token operator">=</span><span class="token string">'left top 0'</span>
+         
+       <span class="token punctuation">&#125;</span>
+       <span class="token function">resizePage</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token comment">// resizePage();</span>
+       window<span class="token punctuation">.</span><span class="token function-variable function">onresize</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+         <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+         <span class="token function">resizePage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+         <span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token number">200</span><span class="token punctuation">)</span>  
+       <span class="token punctuation">&#125;</span>
+        
+   <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><p>封装一个适配的大的组件，可以设大屏的背景图和整体效果。其他的基本都是使用的echart的组件库，因没有什么特别的定制的需求图标。所以也没有做太多的个性化操作</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>template<span class="token operator">></span>
+  <span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"dv-full-screen-container"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>template <span class="token operator">></span>
+      <span class="token operator">&lt;</span>slot<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>slot<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
+  
+  <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>style lang<span class="token operator">=</span><span class="token string">"less"</span><span class="token operator">></span>
+#dv<span class="token operator">-</span>full<span class="token operator">-</span>screen<span class="token operator">-</span>container <span class="token punctuation">&#123;</span>
+  position<span class="token operator">:</span> fixed<span class="token punctuation">;</span>
+  top<span class="token operator">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
+  left<span class="token operator">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
+  overflow<span class="token operator">:</span> hidden<span class="token punctuation">;</span>
+  transform<span class="token operator">-</span>origin<span class="token operator">:</span> left top<span class="token punctuation">;</span>
+  z<span class="token operator">-</span>index<span class="token operator">:</span> <span class="token number">999</span><span class="token punctuation">;</span>
+  width<span class="token operator">:</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
+  height<span class="token operator">:</span><span class="token number">1080</span>pxee
+<span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">></span></code></pre>
+<pre class="language-js" data-language="js"><code class="language-js"> 
+<span class="token operator">&lt;</span>template<span class="token operator">></span>
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"full"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>dv<span class="token operator">-</span>full<span class="token operator">-</span>screen<span class="token operator">-</span>container ref<span class="token operator">=</span><span class="token string">"full"</span><span class="token operator">></span>
+       content
+    <span class="token operator">&lt;</span><span class="token operator">/</span>dv<span class="token operator">-</span>full<span class="token operator">-</span>screen<span class="token operator">-</span>container<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+ 
+<span class="token keyword">import</span>  fullScreenContainer  <span class="token keyword">from</span> <span class="token string">'./fullscreen'</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
+  components<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+    <span class="token string">'dv-full-screen-container'</span><span class="token operator">:</span>fullScreenContainer
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+   
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  methods<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+    
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span>style lang<span class="token operator">=</span><span class="token string">"less"</span><span class="token operator">></span>
+<span class="token punctuation">.</span>full <span class="token punctuation">&#123;</span>
+  #dv<span class="token operator">-</span>full<span class="token operator">-</span>screen<span class="token operator">-</span>container <span class="token punctuation">&#123;</span>
+    background<span class="token operator">:</span>#<span class="token number">000222</span> <span class="token function">url</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span>assets<span class="token operator">/</span>images<span class="token operator">/</span>bg<span class="token punctuation">.</span>png<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    background<span class="token operator">-</span>size<span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
+    overflow<span class="token operator">:</span> auto<span class="token punctuation">;</span>
+    
+    <span class="token punctuation">.</span>full<span class="token operator">-</span>big<span class="token operator">-</span>border <span class="token punctuation">&#123;</span>
+      <span class="token punctuation">.</span>content <span class="token punctuation">&#123;</span>
+        padding<span class="token operator">:</span> <span class="token number">0</span> <span class="token number">38</span>px <span class="token number">0</span> <span class="token number">38</span>px<span class="token punctuation">;</span>
+        width<span class="token operator">:</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token operator">%</span> <span class="token operator">-</span> <span class="token number">76</span>px<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        display<span class="token operator">:</span> flex<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+  
+<span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">></span></code></pre>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>以上就是自己实现大屏整体适配的效果和方法，一开始想偷懒，直接使用dataview 可以直接使用，但是可能在自己的需求的时候，难以达到，或则想的是安装一套太臃肿的组件库，难以扶平自己的强迫症。希望大家有更好的封装方法，我这只是实现一点皮毛，希望对刚入门的同学有所帮助。</p>
+
+      </article>
+      <div class="riseape-post-meta riseape-rainbow">
+    
+        <a class="riseapefont icon-appstore-fill -link" href="/categories/vue/">vue</a>
+    
+    
+        <a class="riseapefont icon-tag-fill -none-link" href="/tags/vue/" rel="tag">vue</a>
+    
+</div>
+            
+      <!-- 这个元素用来承载生成的二维码 不显示 -->
+      <div id="qrcode" style="display: none"></div>
+
+      <!-- canvas 标签 主要用来进行图形的绘制-->
+      <canvas id="canvas" style="max-width:350px;width:100%;border-radius: 10px;overflow: hidden;;"></canvas>
+
+      <nav class="mdui-theme-layout-dark mdui-color-transparent mdui-row mdui-m-b-2">
+        
+        
+        <div class="mdui-col-xs-12"> <a
+            class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
+            style="max-width:100%" href="/2021/01/11/vue/axios/" data-pjax-state=""><i
+              class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>封装一个axios</a>
+        </div>
+        
+      </nav>
+
+      
+        <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2021-06-02 09:29:32
+-->
+
+  <div class="riseape-post-copyright">
+    <strong>本文作者：</strong>starm<br>
+    <!-- <strong>本文链接：</strong><a href="http://example.com/2021/11/09/vue/daping/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;11&#x2F;09&#x2F;vue&#x2F;daping&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;11&#x2F;09&#x2F;vue&#x2F;daping&#x2F;</a><br> -->
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+      
+
+
+  </div>
+
+</div>
+
+  <div class="riseape-post-right">
+    <div class="riseape-fixed">
+      <div class="riseape-valign">
+        <div class="riseape-toc">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">效果图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">代码实现：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">总结：</span></a></li></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+    <script type="text/javascript"src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="/js/qrcode.min.js?v=1636420458331"></script>
+
+    <script>
+      var toc = document.getElementsByClassName('toc-link')
+      console.log(toc)
+      for(let i =0;i<toc.length;i++){
+        toc[i].onclick = ()=> {
+          if(!toc[i].style){
+            toc[i].style.color = '#07c160'
+          }else{
+            toc[i].style.color = 'rgba(0,0,0,0.6)'
+          }
+        }
+      }
+      let canvas = document.querySelector("#canvas");
+      canvas.width = 750;
+      canvas.height = 1080;
+      let qr = document.getElementById("qrcode");
+      let ctx = canvas.getContext("2d");
+      let img = new Image();
+      // 这里的第一张图片就是可以是你们的海报 这里注意绘制的顺序 我们要手动控制
+      img.src = 'https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg'
+      img.onload=function () {
+          ctx.drawImage(img,0,0,750,1960);
+          // 对二维码进行初始化
+          let qrcode = new QRCode(qr, {
+              width : 200,
+              height : 200,
+              margin : 10,
+              colorDark : "#000000",
+              colorLight : "#ffffff",
+          });
+          // 为二维码设置内容	
+          qrcode.makeCode(location.href);
+        // 我们的qrcode生成二维码之后也会有一个canvas对象我们获取到这个元素
+          let base64 = qr.firstChild.toDataURL("image/png",1);
+          // 这里的image只能在onload里面绘制 在外面就会被覆盖了 因为优先加载完毕就会优先绘制 然后就被之后绘制的海报背景遮挡了
+          let shareQr = new Image();
+          // 设置base64编码格式值
+          shareQr.src = base64;
+          shareQr.onload=function(){
+              // 绘制图像  就是绘制二维码到我们自己写的canvas中去
+              ctx.drawImage(shareQr,500,800,200,200);
+          };
+          // 绘制字体
+          ctx.font="28px 楷体";
+          ctx.lineWidth=1; 
+          var str = document.getElementById('title').innerText
+          var lineWidth = 0;
+          var canvasWidth = 750;//计算canvas的宽度
+          var initHeight=80;//绘制字体距离canvas顶部初始的高度
+          var lastSubStrIndex= 0; //每次开始截取的字符串的索引
+          for(let i=0;i<str.length;i++){ 
+              lineWidth+=ctx.measureText(str[i]).width; 
+              if(lineWidth>canvasWidth){  
+                  ctx.fillText(str.substring(lastSubStrIndex,i),30,initHeight);//绘制截取部分
+                  initHeight+=20;//20为字体的高度
+                  lineWidth=0;
+                  lastSubStrIndex=i;
+              } 
+              if(i==str.length-1){//绘制剩余部分
+                  ctx.fillText(str.substring(lastSubStrIndex,i+1),30,initHeight);
+              }
+          }
+      };
+
+
+
+</script>
+<style lang="">
+.riseape-post .prev{
+    color:#000
+  }
+.riseape-post .next{
+    color:#000
+  }
+.riseape-post .prev:hover,.riseape-post .next:hover{
+    background-color: rgba(000,000,000,0.2) !important;
+  }
+</style>
+
+  </div>
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-09 13:55:13
+-->
+<script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ <script src="/js/app.js?v=1636420458404"></script>
+
+
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>
