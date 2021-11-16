@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+<html >
+
+<head>
+  
+  <title>【高德地图】vue实现区域地图展示标注地信息 - RiseApe</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5,user-scalble=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css" integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
+    integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css"> -->
+  <link rel="stylesheet" href="/css/style.css?v=1637025377050">
+  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1637025377050">
+  <script>
+    var preloader = {
+      endLoading: () => {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      },
+      initLoading: () => {
+        document.body.style.overflow = '';
+        document.getElementById('loading-box').classList.remove("loaded")
+
+      }
+    }
+    window.addEventListener('load', () => { preloader.endLoading() })
+  </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  <div id="loading-box">
+    <div class="loading-left-bg"></div>
+    <div class="loading-right-bg"></div>
+    <div class="spinner-box">
+      <div class="configure-border-1">
+        <div class="configure-core"></div>
+      </div>
+      <div class="configure-border-2">
+        <div class="configure-core"></div>
+      </div>
+      <div class="loading-word">加载中...</div>
+    </div>
+  </div>
+  <div id="riseape-background">
+    <div class="riseape-bg" style="background-image: url(http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i
+            class="mdui-icon material-icons">&#xe3c7;</i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="/" title="starm" class="mdui-btn mdui-btn-icon"><img
+            src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" alt="starm"></a>
+      </div>
+    </div>
+  </div>
+  <div id="riseape-header">
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-18 10:34:53
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 13:42:50
+-->
+<div class="riseape-drawer mdui-drawer" id="drawer">
+     <div class="riseape-avatar mdui-ripple">
+        <a href="/" title="starm">
+            <img src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" alt="starm" alt="starm">
+        </a>
+    </div>
+    <p class="riseape-submit" id="subtitle">心向大海,随遇而安</p>
+    <div class="riseape-count">
+        <div><span>文章</span>5</div>
+        <div><span>标签</span>3</div>
+        <div><span>分类</span>2</div>
+    </div>
+    <div class="riseape-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon riseapefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/archives.html" title="里程碑">
+            <i class="mdui-list-item-icon riseapefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                里程碑
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/bookmarks.html" title="我的收藏">
+            <i class="mdui-list-item-icon riseapefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的收藏
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/About.html" title="关于我">
+            <i class="mdui-list-item-icon riseapefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于我
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/Music.html" title="我的音乐">
+            <i class="mdui-list-item-icon riseapefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                我的音乐
+            </div>
+        </a>
+        
+    </div>
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-14 15:48:59
+-->
+<aside id="riseape-sidebar">
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:16:49
+-->
+<div class="riseape-widget-wrap">
+    <div class="riseape-widget riseape-social">
+        <a class="mdui-ripple" href="/WX.html" target="_blank" mdui-tooltip="{content: '微信'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="riseapefont icon-wechat-fill"></i>
+        </a><a class="mdui-ripple" href="https://weibo.com/u/3128736793" target="_blank" mdui-tooltip="{content: '新浪微博'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="riseapefont icon-weibo"></i>
+        </a><a class="mdui-ripple" href="https://github.com/starm328" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="riseapefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="riseape-widget-wrap">
+    <div id="randomtagcloud" class="riseape-widget tagcloud riseape-rainbow">
+      <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a>
+    </div>
+    
+  </div>
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:20:15
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">文章分类</h3>
+    <div class="riseape-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/javascript/">javascript</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/vue/">vue</a>
+          <span class="category-list-count">3</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-14 15:48:20
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">文章归档</h3>
+    <div class="riseape-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.riseape-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:15px;
+	color: #DDD;
+}
+</style>
+
+  
+  
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">最新文章</h3>
+    <div class="riseape-widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/16/vue/ditu/">【高德地图】vue实现区域地图展示标注地信息</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/09/java/maopao/">Javascript事件冒泡机制</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/09/vue/daping/">Vue大屏数据展示</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/11/vue/axios/">封装一个axios</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/18/index/">搭建一个Hexo博客，制作主题模板</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-14 15:36:22
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 09:23:58
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">网站资讯</h3>
+    <div class="riseape-widget">
+      <ul>
+        
+          <li>
+            <a class="item-name"> 本站总字数</a>
+            <span class="item-count"> 3.8k</span>
+          </li>
+          <li>
+            <a class="item-name">本站访客数</a>
+            <span id="busuanzi_value_site_uv" class="item-count"></span>
+          </li>
+          <li>
+            <a class="item-name">本站总访问量</a>
+            <span id="busuanzi_value_site_pv" class="item-count"></span>
+          </li>
+      </ul>
+    </div>
+  </div>
+
+
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<style>
+  .riseape-widget .item-name{
+    padding: 14px 10px;
+    display: block;
+    color: #606266
+  }
+  .riseape-widget .item-count{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #000;
+  }
+  </style>
+  
+  
+</aside>
+    <div class="riseape-copyright">
+        &copy; 2021 starm
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </br>
+          本站上线：341天9小时
+    </div>
+</div><!-- .riseape-drawer -->
+<script>
+  let divTyping = document.getElementById('subtitle')
+  let i = 0,
+    timer = 0,
+    str = divTyping.innerText
+
+  function typing () {
+    if (i <= str.length) {
+      divTyping.innerHTML = str.slice(0, i++) + '_'
+      timer = setTimeout(typing, 200)
+    }
+    else {
+      i = 0
+      divTyping.innerHTML = str
+      timer = setTimeout(typing, 2000)
+
+    }
+  }
+
+  typing()
+</script>
+  </div>
+  <div id="riseape-content">
+
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2021-01-13 15:01:35
+-->
+<div class="riseape-primary">
+  <div class="riseape-post">
+    
+      <div class="riseape-post-cover">
+        <img data-src="/images/gaode.jpg" data-sizes="auto" alt="【高德地图】vue实现区域地图展示标注地信息" class="lazyload">
+        <h1 id="title">
+          【高德地图】vue实现区域地图展示标注地信息
+        </h1>
+      </div>
+      
+
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 10:17:24
+-->
+<div class="riseape-post-meta riseape-rainbow" style="margin:10px 0!important;">
+    <a><i class="mdui-icon material-icons">&#xe8df;</i>2021年11月16日 09:11:18</a>
+    <a><i class="mdui-icon material-icons">&#xe8e2;</i>1.5k 字</a>
+    <a><i class="mdui-icon material-icons">&#xe192;</i>阅读约 7 分钟</a>
+    <a><i class="mdui-icon material-icons">remove_red_eye</i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次</a>
+</div>
+
+
+      <article>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在上海部分高校都有一个或者多个布控的监控摄像头，然后通过地图，来统一展示我们的设备，可以通过地址搜索，在地图上显示，并且点击可以查看到摄像头的具体信息。这里设备获取，使用的是萤石的开发者中心获取的。</p>
+<h2 id="具体效果"><a href="#具体效果" class="headerlink" title="具体效果"></a>具体效果</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b71380dc19ce45eb8ff621f62c0de0ab~tplv-k3u1fbpfcp-watermark.image?" alt="image.png" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/50a1aea0c69843e38e10a8964117f0b2~tplv-k3u1fbpfcp-watermark.image?" alt="image.png" class="lazyload"></p>
+<h2 id="高德地图"><a href="#高德地图" class="headerlink" title="高德地图"></a>高德地图</h2><p>这里使用了<code>AMap.DistrictSearch</code>和<code>AMap.PlaceSearch</code>这两个API</p>
+<h3 id="AMap-DistrictSearch"><a href="#AMap-DistrictSearch" class="headerlink" title="AMap.DistrictSearch"></a>AMap.DistrictSearch</h3><p>行政区查询服务（<code>AMap.DistrictSearch</code>）提供行政区信息的查询，使用该服务可以获取到行政区域的区号、城市编码、中心点、边界、下辖区域等详细信息，为基于行政区域的地图功能提供支持。</p>
+<h3 id="AMap-PlaceSearch"><a href="#AMap-PlaceSearch" class="headerlink" title="AMap.PlaceSearch"></a>AMap.PlaceSearch</h3><p>地点搜索服务，提供某一特定地区的位置查询服务。PlaceSearch构造函数的参数为可选，表达为参数对象PlaceSearchOptions。PlaceSearchOptions允许设置搜索城市、搜索数据类别、搜索结果详略、搜索结果排序规则等。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><blockquote>
+<p>1、渲染地图</p>
+<p>2、标注设备位置</p>
+<p>3、标注添加点击事件</p>
+<p>4、弹框信息</p>
+<p> 5、监听搜索框，重新渲染地图</p>
+</blockquote>
+<p>引入高德地图<br><code>import AMap from &#39;AMap&#39;</code></p>
+<p>这里需要在<code>vue.config.js</code>中配置以下<br><pre class="language-javascript" data-language="javascript"><code class="language-javascript">configureWebpack<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    externals<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string">'AMap'</span><span class="token operator">:</span> <span class="token string">'AMap'</span><span class="token punctuation">,</span> <span class="token comment">// 高德地图配置</span>
+      <span class="token string">'EZUIKit'</span><span class="token operator">:</span><span class="token string">'EZUIKit'</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span></code></pre><br>开始渲染高德地图<br><pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>skyeye-map<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-select</span>  <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>value<span class="token punctuation">"</span></span>
+          <span class="token attr-name">filterable</span>
+          <span class="token attr-name">remote</span>
+          <span class="token attr-name">reserve-keyword</span>
+          <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>请输入关键词<span class="token punctuation">"</span></span>
+          <span class="token attr-name">:remote-method</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Search<span class="token punctuation">"</span></span>
+          <span class="token attr-name">@change</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>select<span class="token punctuation">"</span></span>
+          <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>small<span class="token punctuation">"</span></span>
+          <span class="token attr-name">:loading</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>loding<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-option</span>
+            <span class="token attr-name">v-for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>(item,index) in options<span class="token punctuation">"</span></span>
+            <span class="token attr-name">:key</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>index<span class="token punctuation">"</span></span>
+            <span class="token attr-name">:label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>item.name<span class="token punctuation">"</span></span>
+            <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>JSON.stringify(item.location)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-option</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-select</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">width</span><span class="token punctuation">:</span>100%<span class="token punctuation">;</span><span class="token property">height</span><span class="token punctuation">:</span>100%<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-dialog</span>
+          <span class="token attr-name">:title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>videoData.Name<span class="token punctuation">"</span></span>
+          <span class="token attr-name">:visible.sync</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dialogVisible<span class="token punctuation">"</span></span>
+          <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>30%<span class="token punctuation">"</span></span>
+          <span class="token attr-name">@close</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>closeDialog<span class="token punctuation">"</span></span>
+          <span class="token attr-name">destroy-on-close</span>
+          <span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>video-list<span class="token punctuation">"</span></span> <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dialogVisible == <span class="token punctuation">'</span>video<span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>video</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>myPlayer<span class="token punctuation">"</span></span>  <span class="token attr-name">autoplay</span> <span class="token attr-name">:src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>videoData.URL<span class="token punctuation">"</span></span>  <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>videoData.URL<span class="token punctuation">"</span></span> <span class="token attr-name">playsInline</span> <span class="token attr-name">webkit-playsinline</span> <span class="token attr-name">controls</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>video</span><span class="token punctuation">></span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">v-else</span> <span class="token punctuation">></span></span>
+             该点还未设置乐天眼
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>video-list<span class="token punctuation">"</span></span> <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dialogVisible == <span class="token punctuation">'</span>text<span class="token punctuation">'</span><span class="token punctuation">"</span></span> <span class="token attr-name">v-html</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>videoData.Info.replace(/\n|\r\n/g, <span class="token punctuation">'</span>&lt;br><span class="token punctuation">'</span>)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-dialog</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre></p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      videoData<span class="token operator">:</span><span class="token string">''</span><span class="token punctuation">,</span>
+      dialogVisible<span class="token operator">:</span><span class="token boolean">false</span><span class="token punctuation">,</span>
+      options<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      loding<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      value<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+      player<span class="token operator">:</span><span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_initMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    methods<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+     <span class="token function">_initMap</span><span class="token punctuation">(</span><span class="token parameter">lat</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+           <span class="token comment">// 获取人员列表 </span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>loading <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$loading</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            lock<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+            text<span class="token operator">:</span> <span class="token string">'Loading'</span><span class="token punctuation">,</span>
+            spinner<span class="token operator">:</span> <span class="token string">'el-icon-loading'</span><span class="token punctuation">,</span>
+            target<span class="token operator">:</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'container'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            background<span class="token operator">:</span> <span class="token string">'rgba(255, 255, 255, 0.7)'</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+           <span class="token comment">//GetSkyeye 是封装了一个获取所有位置的列表信息，这里可以改写成自己的请求数据</span>
+          <span class="token function">GetSkyeye</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>pageSize<span class="token operator">:</span><span class="token number">99999</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>loading<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>data<span class="token punctuation">.</span>code <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                <span class="token keyword">var</span> _this <span class="token operator">=</span> <span class="token keyword">this</span>
+            <span class="token keyword">var</span> opts <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+                subdistrict<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+                extensions<span class="token operator">:</span> <span class="token string">'all'</span><span class="token punctuation">,</span>
+                level<span class="token operator">:</span> <span class="token string">'city'</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+            <span class="token keyword">const</span> loading <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$loading</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+              lock<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+              text<span class="token operator">:</span> <span class="token string">'Loading'</span><span class="token punctuation">,</span>
+              spinner<span class="token operator">:</span> <span class="token string">'el-icon-loading'</span><span class="token punctuation">,</span>
+              target<span class="token operator">:</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'container'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+              background<span class="token operator">:</span> <span class="token string">'rgba(255, 255, 255, 0.7)'</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//利用行政区查询获取边界构建mask路径</span>
+            <span class="token comment">//也可以直接通过经纬度构建mask路径</span>
+            <span class="token keyword">var</span> district <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>DistrictSearch</span><span class="token punctuation">(</span>opts<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            district<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span><span class="token string">'上海'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">status<span class="token punctuation">,</span> result</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+              <span class="token keyword">var</span> bounds <span class="token operator">=</span> result<span class="token punctuation">.</span>districtList<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>boundaries
+
+              <span class="token keyword">var</span> mask <span class="token operator">=</span> <span class="token punctuation">[</span> 
+              <span class="token punctuation">]</span>
+                <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>bounds<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">+=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                    mask<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">[</span>bounds<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                <span class="token punctuation">&#125;</span>
+              <span class="token keyword">var</span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Map</span><span class="token punctuation">(</span><span class="token string">'container'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+                  mapStyle<span class="token operator">:</span> <span class="token string">"amap://styles/90289c6fa259e41ac055a6455979370b"</span><span class="token punctuation">,</span>
+                  mask<span class="token operator">:</span>mask<span class="token punctuation">,</span>
+                  center<span class="token operator">:</span>lat <span class="token operator">?</span> lat <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">121.541313</span><span class="token punctuation">,</span><span class="token number">31.244013</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                  disableSocket<span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+                  viewMode<span class="token operator">:</span><span class="token string">'3D'</span><span class="token punctuation">,</span>
+                  zoom<span class="token operator">:</span>lat <span class="token operator">?</span> <span class="token number">15</span> <span class="token operator">:</span> <span class="token number">10</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+              <span class="token comment">// 同时引入工具条插件，比例尺插件和鹰眼插件</span>
+              AMap<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+                  <span class="token string">'AMap.MapType'</span><span class="token punctuation">,</span>
+              <span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                  <span class="token comment">// 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制</span>
+                  map<span class="token punctuation">.</span><span class="token function">addControl</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>MapType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span>bounds<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">=</span> bounds<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                  <span class="token comment">//生成行政区划polygon</span>
+                  <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Polygon</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                    map<span class="token operator">:</span> map<span class="token punctuation">,</span>    <span class="token comment">// 指定地图对象</span>
+                    strokeWeight<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>    <span class="token comment">// 轮廓线宽度</span>
+                    path<span class="token operator">:</span> bounds<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>     <span class="token comment">//轮廓线的节点坐标数组</span>
+                    fillOpacity<span class="token operator">:</span><span class="token number">0</span><span class="token punctuation">,</span>     <span class="token comment">//透明度</span>
+                    strokeColor<span class="token operator">:</span> <span class="token string">'#999'</span><span class="token punctuation">,</span>    <span class="token comment">//线条颜色</span>
+                  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+                  <span class="token punctuation">&#125;</span>
+                <span class="token punctuation">&#125;</span>
+              loading<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+              console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> e<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+              <span class="token keyword">var</span> lnglats <span class="token operator">=</span> e<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+              <span class="token keyword">var</span> icon <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Icon</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                  size<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Size</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">,</span><span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">,</span>    <span class="token comment">// 图标尺寸</span>
+                  image<span class="token operator">:</span><span class="token string">'https://sl-app.oss-cn-shanghai.aliyuncs.com/lpt/map-icon.png'</span><span class="token punctuation">,</span>  <span class="token comment">// Icon的图像</span>
+                  imageSize<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Size</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">,</span><span class="token number">32</span><span class="token punctuation">)</span>   <span class="token comment">// 根据所设置的大小拉伸或压缩图片</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+              <span class="token keyword">var</span> icon2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Icon</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                  size<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Size</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">,</span><span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">,</span>    <span class="token comment">// 图标尺寸</span>
+                  image<span class="token operator">:</span><span class="token string">'https://sl-app.oss-cn-shanghai.aliyuncs.com/lpt/sllogo.png'</span><span class="token punctuation">,</span>  <span class="token comment">// Icon的图像</span>
+                  imageSize<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Size</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">,</span><span class="token number">32</span><span class="token punctuation">)</span>   <span class="token comment">// 根据所设置的大小拉伸或压缩图片</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+              <span class="token keyword">var</span> noicon <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Icon</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                  size<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Size</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">,</span><span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">,</span>    <span class="token comment">// 图标尺寸</span>
+                  image<span class="token operator">:</span><span class="token string">'none'</span><span class="token punctuation">,</span>  <span class="token comment">// Icon的图像</span>
+                  imageSize<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Size</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">,</span><span class="token number">32</span><span class="token punctuation">)</span>   <span class="token comment">// 根据所设置的大小拉伸或压缩图片</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> lnglats<span class="token punctuation">.</span>length<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">var</span> lnglat <span class="token operator">=</span> lnglats<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">var</span> maskerIn2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Marker</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                    position<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>LngLat</span><span class="token punctuation">(</span>lnglat<span class="token punctuation">.</span>Longitude<span class="token punctuation">,</span> lnglat<span class="token punctuation">.</span>Latitude<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    icon<span class="token operator">:</span>noicon<span class="token punctuation">,</span>
+                    extData<span class="token operator">:</span> lnglat<span class="token punctuation">,</span>
+                    map<span class="token operator">:</span>map
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+                <span class="token keyword">var</span> maskerIn <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Marker</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                    position<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>LngLat</span><span class="token punctuation">(</span>lnglat<span class="token punctuation">.</span>Longitude<span class="token punctuation">,</span> lnglat<span class="token punctuation">.</span>Latitude<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    icon<span class="token operator">:</span>lnglat<span class="token punctuation">.</span>Name <span class="token operator">==</span> <span class="token string">'上海生乐物业管理有限公司'</span> <span class="token operator">?</span> icon2 <span class="token operator">:</span>  icon<span class="token punctuation">,</span>
+                    extData<span class="token operator">:</span> lnglat<span class="token punctuation">,</span>
+                    map<span class="token operator">:</span>map
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+                maskerIn2<span class="token punctuation">.</span><span class="token function">setLabel</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                    offset<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Pixel</span><span class="token punctuation">(</span><span class="token number">0</span> <span class="token punctuation">,</span><span class="token number">25</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  <span class="token comment">//设置文本标注偏移量</span>
+                    content<span class="token operator">:</span> <span class="token string">"&lt;div class='info'>"</span><span class="token operator">+</span>lnglats<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">.</span>Name<span class="token operator">+</span><span class="token string">"&lt;/div>"</span><span class="token punctuation">,</span> <span class="token comment">//设置文本标注内容</span>
+                    direction<span class="token operator">:</span> <span class="token string">'center'</span><span class="token punctuation">,</span> <span class="token comment">//设置文本标注方位</span>
+
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                maskerIn<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> showInfoM<span class="token punctuation">)</span>
+                maskerIn2<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> showInfoM2<span class="token punctuation">)</span>
+              <span class="token punctuation">&#125;</span>
+              <span class="token comment">//标注点击弹出设备信息事件</span>
+              <span class="token keyword">function</span> <span class="token function">showInfoM</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                _this<span class="token punctuation">.</span>videoData <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">getExtData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                _this<span class="token punctuation">.</span>dialogVisible <span class="token operator">=</span> <span class="token string">'video'</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">getExtData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token constant">URL</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                  _this<span class="token punctuation">.</span><span class="token function">$nextTick</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>player <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EZUIKit<span class="token punctuation">.</span>EZUIPlayer</span><span class="token punctuation">(</span><span class="token string">'myPlayer'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>player<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>player<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'play'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'play'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>player<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'pause'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'pause'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+                  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+                <span class="token punctuation">&#125;</span>
+
+              <span class="token punctuation">&#125;</span>
+              <span class="token keyword">function</span> <span class="token function">showInfoM2</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">getExtData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                _this<span class="token punctuation">.</span>videoData <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">getExtData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                _this<span class="token punctuation">.</span>dialogVisible <span class="token operator">=</span> <span class="token string">'text'</span>
+
+              <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>loading<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$message</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                message<span class="token operator">:</span> err<span class="token punctuation">,</span>
+                type<span class="token operator">:</span> <span class="token string">'error'</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token function">Search</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+          <span class="token keyword">var</span> _this <span class="token operator">=</span> <span class="token keyword">this</span>
+          AMap<span class="token punctuation">.</span><span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"AMap.PlaceSearch"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+              <span class="token comment">//构造地点查询类</span>
+              <span class="token keyword">var</span> placeSearch <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>PlaceSearch</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                <span class="token comment">// city 指定搜索所在城市，支持传入格式有：城市名、citycode和adcode</span>
+                city<span class="token operator">:</span> <span class="token string">'上海'</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+              placeSearch<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">status<span class="token punctuation">,</span> result</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">// 查询成功时，result即对应匹配的POI信息</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status<span class="token punctuation">,</span> result<span class="token punctuation">)</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>info<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                  _this<span class="token punctuation">.</span>options <span class="token operator">=</span> result<span class="token punctuation">.</span>poiList<span class="token punctuation">.</span>pois
+                <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+                  _this<span class="token punctuation">.</span>options<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
+                <span class="token punctuation">&#125;</span>
+
+              <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token function">select</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+          <span class="token keyword">var</span> lat <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">.</span>lng<span class="token punctuation">,</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">.</span>lat<span class="token punctuation">]</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_initMap</span><span class="token punctuation">(</span>lat<span class="token punctuation">)</span>
+
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        
+        <span class="token function">closeDialog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+          <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>player<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+             <span class="token keyword">this</span><span class="token punctuation">.</span>player<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'pause'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'pause'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+             <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>熟悉高德地图API，最终实现划区域的地图显示。关闭视频弹框的同时，需要销毁Video，不然只是单纯的关闭了弹框，视频还在后台播放着。</p>
+
+      </article>
+      <div class="riseape-post-meta riseape-rainbow">
+    
+        <a class="riseapefont icon-appstore-fill -link" href="/categories/vue/">vue</a>
+    
+    
+        <a class="riseapefont icon-tag-fill -none-link" href="/tags/vue/" rel="tag">vue</a>
+    
+</div>
+            
+      <!-- 这个元素用来承载生成的二维码 不显示 -->
+      <div id="qrcode" style="display: none"></div>
+
+      <!-- canvas 标签 主要用来进行图形的绘制-->
+      <canvas id="canvas" style="max-width:350px;width:100%;border-radius: 10px;overflow: hidden;;"></canvas>
+
+      <nav class="mdui-theme-layout-dark mdui-color-transparent mdui-row mdui-m-b-2">
+        
+        
+        <div class="mdui-col-xs-12"> <a
+            class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
+            style="max-width:100%" href="/2021/11/09/java/maopao/" data-pjax-state=""><i
+              class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>Javascript事件冒泡机制</a>
+        </div>
+        
+      </nav>
+
+      
+        <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2021-06-02 09:29:32
+-->
+
+  <div class="riseape-post-copyright">
+    <strong>本文作者：</strong>starm<br>
+    <!-- <strong>本文链接：</strong><a href="http://example.com/2021/11/16/vue/ditu/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;11&#x2F;16&#x2F;vue&#x2F;ditu&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;11&#x2F;16&#x2F;vue&#x2F;ditu&#x2F;</a><br> -->
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+      
+
+
+  </div>
+
+</div>
+
+  <div class="riseape-post-right">
+    <div class="riseape-fixed">
+      <div class="riseape-valign">
+        <div class="riseape-toc">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%95%88%E6%9E%9C"><span class="toc-number">2.</span> <span class="toc-text">具体效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE"><span class="toc-number">3.</span> <span class="toc-text">高德地图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AMap-DistrictSearch"><span class="toc-number">3.1.</span> <span class="toc-text">AMap.DistrictSearch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AMap-PlaceSearch"><span class="toc-number">3.2.</span> <span class="toc-text">AMap.PlaceSearch</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">具体实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+    <script type="text/javascript"src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="/js/qrcode.min.js?v=1637025376914"></script>
+
+    <script>
+      var toc = document.getElementsByClassName('toc-link')
+      console.log(toc)
+      for(let i =0;i<toc.length;i++){
+        toc[i].onclick = ()=> {
+          if(!toc[i].style){
+            toc[i].style.color = '#07c160'
+          }else{
+            toc[i].style.color = 'rgba(0,0,0,0.6)'
+          }
+        }
+      }
+      let canvas = document.querySelector("#canvas");
+      canvas.width = 750;
+      canvas.height = 1080;
+      let qr = document.getElementById("qrcode");
+      let ctx = canvas.getContext("2d");
+      let img = new Image();
+      // 这里的第一张图片就是可以是你们的海报 这里注意绘制的顺序 我们要手动控制
+      img.src = 'https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg'
+      img.onload=function () {
+          ctx.drawImage(img,0,0,750,1960);
+          // 对二维码进行初始化
+          let qrcode = new QRCode(qr, {
+              width : 200,
+              height : 200,
+              margin : 10,
+              colorDark : "#000000",
+              colorLight : "#ffffff",
+          });
+          // 为二维码设置内容	
+          qrcode.makeCode(location.href);
+        // 我们的qrcode生成二维码之后也会有一个canvas对象我们获取到这个元素
+          let base64 = qr.firstChild.toDataURL("image/png",1);
+          // 这里的image只能在onload里面绘制 在外面就会被覆盖了 因为优先加载完毕就会优先绘制 然后就被之后绘制的海报背景遮挡了
+          let shareQr = new Image();
+          // 设置base64编码格式值
+          shareQr.src = base64;
+          shareQr.onload=function(){
+              // 绘制图像  就是绘制二维码到我们自己写的canvas中去
+              ctx.drawImage(shareQr,500,800,200,200);
+          };
+          // 绘制字体
+          ctx.font="28px 楷体";
+          ctx.lineWidth=1; 
+          var str = document.getElementById('title').innerText
+          var lineWidth = 0;
+          var canvasWidth = 750;//计算canvas的宽度
+          var initHeight=80;//绘制字体距离canvas顶部初始的高度
+          var lastSubStrIndex= 0; //每次开始截取的字符串的索引
+          for(let i=0;i<str.length;i++){ 
+              lineWidth+=ctx.measureText(str[i]).width; 
+              if(lineWidth>canvasWidth){  
+                  ctx.fillText(str.substring(lastSubStrIndex,i),30,initHeight);//绘制截取部分
+                  initHeight+=20;//20为字体的高度
+                  lineWidth=0;
+                  lastSubStrIndex=i;
+              } 
+              if(i==str.length-1){//绘制剩余部分
+                  ctx.fillText(str.substring(lastSubStrIndex,i+1),30,initHeight);
+              }
+          }
+      };
+
+
+
+</script>
+<style lang="">
+.riseape-post .prev{
+    color:#000
+  }
+.riseape-post .next{
+    color:#000
+  }
+.riseape-post .prev:hover,.riseape-post .next:hover{
+    background-color: rgba(000,000,000,0.2) !important;
+  }
+</style>
+
+  </div>
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-09 13:55:13
+-->
+<script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ <script src="/js/app.js?v=1637025377055"></script>
+
+
+  
+</body>
+
+</html>
