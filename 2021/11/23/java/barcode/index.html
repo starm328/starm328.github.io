@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+<html >
+
+<head>
+  
+  <title>【barcode.js】小程序生成条形码 - RiseApe</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="undefined">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5,user-scalble=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css" integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
+    integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css"> -->
+  <link rel="stylesheet" href="/css/style.css?v=1637636637245">
+  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1637636637245">
+  <script>
+    var preloader = {
+      endLoading: () => {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      },
+      initLoading: () => {
+        document.body.style.overflow = '';
+        document.getElementById('loading-box').classList.remove("loaded")
+
+      }
+    }
+    window.addEventListener('load', () => { preloader.endLoading() })
+  </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  <div id="loading-box">
+    <div class="loading-left-bg"></div>
+    <div class="loading-right-bg"></div>
+    <div class="spinner-box">
+      <div class="configure-border-1">
+        <div class="configure-core"></div>
+      </div>
+      <div class="configure-border-2">
+        <div class="configure-core"></div>
+      </div>
+      <div class="loading-word">加载中...</div>
+    </div>
+  </div>
+  <div id="riseape-background">
+    <div class="riseape-bg" style="background-image: url(http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i
+            class="mdui-icon material-icons">&#xe3c7;</i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="/" title="starm" class="mdui-btn mdui-btn-icon"><img
+            src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" alt="starm"></a>
+      </div>
+    </div>
+  </div>
+  <div id="riseape-header">
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-18 10:34:53
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 13:42:50
+-->
+<div class="riseape-drawer mdui-drawer" id="drawer">
+     <div class="riseape-avatar mdui-ripple">
+        <a href="/" title="starm">
+            <img src="http://p1.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg" alt="starm" alt="starm">
+        </a>
+    </div>
+    <p class="riseape-submit" id="subtitle">心向大海,随遇而安</p>
+    <div class="riseape-count">
+        <div><span>文章</span>6</div>
+        <div><span>标签</span>3</div>
+        <div><span>分类</span>2</div>
+    </div>
+    <div class="riseape-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon riseapefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/archives.html" title="里程碑">
+            <i class="mdui-list-item-icon riseapefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                里程碑
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/bookmarks.html" title="我的收藏">
+            <i class="mdui-list-item-icon riseapefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的收藏
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/About.html" title="关于我">
+            <i class="mdui-list-item-icon riseapefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于我
+            </div>
+        </a>
+        
+        <a class="riseape-list-item mdui-list-item mdui-ripple" href="/Music.html" title="我的音乐">
+            <i class="mdui-list-item-icon riseapefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                我的音乐
+            </div>
+        </a>
+        
+    </div>
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-14 15:48:59
+-->
+<aside id="riseape-sidebar">
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:16:49
+-->
+<div class="riseape-widget-wrap">
+    <div class="riseape-widget riseape-social">
+        <a class="mdui-ripple" href="/WX.html" target="_blank" mdui-tooltip="{content: '微信'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="riseapefont icon-wechat-fill"></i>
+        </a><a class="mdui-ripple" href="https://weibo.com/u/3128736793" target="_blank" mdui-tooltip="{content: '新浪微博'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="riseapefont icon-weibo"></i>
+        </a><a class="mdui-ripple" href="https://github.com/starm328" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="riseapefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="riseape-widget-wrap">
+    <div id="randomtagcloud" class="riseape-widget tagcloud riseape-rainbow">
+      <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a>
+    </div>
+    
+  </div>
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-10 15:20:15
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">文章分类</h3>
+    <div class="riseape-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/javascript/">javascript</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/vue/">vue</a>
+          <span class="category-list-count">3</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-14 15:48:20
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">文章归档</h3>
+    <div class="riseape-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.riseape-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:15px;
+	color: #DDD;
+}
+</style>
+
+  
+  
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">最新文章</h3>
+    <div class="riseape-widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/23/java/barcode/">【barcode.js】小程序生成条形码</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/16/vue/ditu/">【高德地图】vue实现区域地图展示标注地信息</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/09/java/maopao/">Javascript事件冒泡机制</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/09/vue/daping/">Vue大屏数据展示</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/11/vue/axios/">封装一个axios</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-14 15:36:22
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 09:23:58
+-->
+
+  <div class="riseape-widget-wrap">
+    <h3 class="riseape-widget-title">网站资讯</h3>
+    <div class="riseape-widget">
+      <ul>
+        
+          <li>
+            <a class="item-name"> 本站总字数</a>
+            <span class="item-count"> 6.4k</span>
+          </li>
+          <li>
+            <a class="item-name">本站访客数</a>
+            <span id="busuanzi_value_site_uv" class="item-count"></span>
+          </li>
+          <li>
+            <a class="item-name">本站总访问量</a>
+            <span id="busuanzi_value_site_pv" class="item-count"></span>
+          </li>
+      </ul>
+    </div>
+  </div>
+
+
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<style>
+  .riseape-widget .item-name{
+    padding: 14px 10px;
+    display: block;
+    color: #606266
+  }
+  .riseape-widget .item-count{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #000;
+  }
+  </style>
+  
+  
+</aside>
+    <div class="riseape-copyright">
+        &copy; 2021 starm
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </br>
+          本站上线：348天11小时
+    </div>
+</div><!-- .riseape-drawer -->
+<script>
+  let divTyping = document.getElementById('subtitle')
+  let i = 0,
+    timer = 0,
+    str = divTyping.innerText
+
+  function typing () {
+    if (i <= str.length) {
+      divTyping.innerHTML = str.slice(0, i++) + '_'
+      timer = setTimeout(typing, 200)
+    }
+    else {
+      i = 0
+      divTyping.innerHTML = str
+      timer = setTimeout(typing, 2000)
+
+    }
+  }
+
+  typing()
+</script>
+  </div>
+  <div id="riseape-content">
+
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2021-01-13 15:01:35
+-->
+<div class="riseape-primary">
+  <div class="riseape-post">
+    
+      <div class="riseape-post-cover">
+        <img data-src="/images/javascript.jpg" data-sizes="auto" alt="【barcode.js】小程序生成条形码" class="lazyload">
+        <h1 id="title">
+          【barcode.js】小程序生成条形码
+        </h1>
+      </div>
+      
+
+    <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-18 10:17:24
+-->
+<div class="riseape-post-meta riseape-rainbow" style="margin:10px 0!important;">
+    <a><i class="mdui-icon material-icons">&#xe8df;</i>2021年11月23日 10:11:49</a>
+    <a><i class="mdui-icon material-icons">&#xe8e2;</i>2.6k 字</a>
+    <a><i class="mdui-icon material-icons">&#xe192;</i>阅读约 15 分钟</a>
+    <a><i class="mdui-icon material-icons">remove_red_eye</i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次</a>
+</div>
+
+
+      <article>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>一开始做的只是显示一个兑换码的字符串，后面客户嫌自己输入麻烦（要我输，我也觉得麻烦，23333），后来改为条形码的方式，客户使用扫码枪，直接扫入系统核销。</p>
+</blockquote>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/72a7e2e98d7845468044db6fa3e59c51~tplv-k3u1fbpfcp-watermark.image?" alt="image.png" class="lazyload"></p>
+<p>创建<code>barcode_util.js</code> 文件<br><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> barcode <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./barcode'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">convert_length</span><span class="token punctuation">(</span><span class="token parameter">length</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span>wx<span class="token punctuation">.</span><span class="token function">getSystemInfoSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>windowWidth <span class="token operator">*</span> length <span class="token operator">/</span> <span class="token number">750</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">function</span> <span class="token function">barc</span><span class="token punctuation">(</span><span class="token parameter">id<span class="token punctuation">,</span> code<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    barcode<span class="token punctuation">.</span><span class="token function">code128</span><span class="token punctuation">(</span>wx<span class="token punctuation">.</span><span class="token function">createCanvasContext</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">,</span> code<span class="token punctuation">,</span> <span class="token function">convert_length</span><span class="token punctuation">(</span>width<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">convert_length</span><span class="token punctuation">(</span>height<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+ 
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    barcode<span class="token operator">:</span>  barc
+<span class="token punctuation">&#125;</span></code></pre><br>barcode.js<br><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> <span class="token constant">CHAR_TILDE</span> <span class="token operator">=</span> <span class="token number">126</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> <span class="token constant">CODE_FNC1</span> <span class="token operator">=</span> <span class="token number">102</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> <span class="token constant">SET_STARTA</span> <span class="token operator">=</span> <span class="token number">103</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> <span class="token constant">SET_STARTB</span> <span class="token operator">=</span> <span class="token number">104</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> <span class="token constant">SET_STARTC</span> <span class="token operator">=</span> <span class="token number">105</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> <span class="token constant">SET_SHIFT</span> <span class="token operator">=</span> <span class="token number">98</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> <span class="token constant">SET_CODEA</span> <span class="token operator">=</span> <span class="token number">101</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> <span class="token constant">SET_CODEB</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> <span class="token constant">SET_STOP</span> <span class="token operator">=</span> <span class="token number">106</span><span class="token punctuation">;</span>
+
+
+<span class="token keyword">var</span> <span class="token constant">REPLACE_CODES</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token constant">CHAR_TILDE</span><span class="token operator">:</span> <span class="token constant">CODE_FNC1</span> <span class="token comment">//~ corresponds to FNC1 in GS1-128 standard</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">var</span> <span class="token constant">CODESET</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token constant">ANY</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token constant">AB</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token constant">A</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token constant">B</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+    <span class="token constant">C</span><span class="token operator">:</span> <span class="token number">5</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token parameter">str</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> bytes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> str<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        bytes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>str<span class="token punctuation">.</span><span class="token function">charCodeAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> bytes<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">code128</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> text<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+    width <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    height <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> codes <span class="token operator">=</span> <span class="token function">stringToCode128</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> g <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Graphics</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> barWeight <span class="token operator">=</span> g<span class="token punctuation">.</span>area<span class="token punctuation">.</span>width <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>codes<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">11</span> <span class="token operator">+</span> <span class="token number">35</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> x <span class="token operator">=</span> g<span class="token punctuation">.</span>area<span class="token punctuation">.</span>left<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> y <span class="token operator">=</span> g<span class="token punctuation">.</span>area<span class="token punctuation">.</span>top<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> codes<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">var</span> c <span class="token operator">=</span> codes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token comment">//two bars at a time: 1 black and 1 white</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> bar <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> bar <span class="token operator">&lt;</span> <span class="token number">8</span><span class="token punctuation">;</span> bar <span class="token operator">+=</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">var</span> barW <span class="token operator">=</span> <span class="token constant">PATTERNS</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">[</span>bar<span class="token punctuation">]</span> <span class="token operator">*</span> barWeight<span class="token punctuation">;</span>
+            <span class="token comment">// var barH = height - y - this.border;</span>
+            <span class="token keyword">var</span> barH <span class="token operator">=</span> height <span class="token operator">-</span> y<span class="token punctuation">;</span>
+            <span class="token keyword">var</span> spcW <span class="token operator">=</span> <span class="token constant">PATTERNS</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">[</span>bar <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">*</span> barWeight<span class="token punctuation">;</span>
+
+            <span class="token comment">//no need to draw if 0 width</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>barW <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                g<span class="token punctuation">.</span><span class="token function">fillFgRect</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> barW<span class="token punctuation">,</span> barH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+
+            x <span class="token operator">+=</span> barW <span class="token operator">+</span> spcW<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    ctx<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token keyword">function</span> <span class="token function">stringToCode128</span><span class="token punctuation">(</span><span class="token parameter">text</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">var</span> barc <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        currcs<span class="token operator">:</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">C</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> bytes <span class="token operator">=</span> <span class="token function">getBytes</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//decide starting codeset</span>
+    <span class="token keyword">var</span> index <span class="token operator">=</span> bytes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token constant">CHAR_TILDE</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> csa1 <span class="token operator">=</span> bytes<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token function">codeSetAllowedFor</span><span class="token punctuation">(</span>bytes<span class="token punctuation">[</span>index<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">AB</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> csa2 <span class="token operator">=</span> bytes<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token function">codeSetAllowedFor</span><span class="token punctuation">(</span>bytes<span class="token punctuation">[</span>index<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">AB</span><span class="token punctuation">;</span>
+    barc<span class="token punctuation">.</span>currcs <span class="token operator">=</span> <span class="token function">getBestStartSet</span><span class="token punctuation">(</span>csa1<span class="token punctuation">,</span> csa2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    barc<span class="token punctuation">.</span>currcs <span class="token operator">=</span> <span class="token function">perhapsCodeC</span><span class="token punctuation">(</span>bytes<span class="token punctuation">,</span> barc<span class="token punctuation">.</span>currcs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//if no codeset changes this will end up with bytes.length+3</span>
+    <span class="token comment">//start, checksum and stop</span>
+    <span class="token keyword">var</span> codes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span>barc<span class="token punctuation">.</span>currcs<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">case</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span><span class="token operator">:</span>
+            codes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token constant">SET_STARTA</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span><span class="token operator">:</span>
+            codes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token constant">SET_STARTB</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">default</span><span class="token operator">:</span>
+            codes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token constant">SET_STARTC</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> bytes<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">var</span> b1 <span class="token operator">=</span> bytes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">//get the first of a pair</span>
+        <span class="token comment">//should we translate/replace</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>b1 <span class="token keyword">in</span> <span class="token constant">REPLACE_CODES</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            codes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token constant">REPLACE_CODES</span><span class="token punctuation">[</span>b1<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            i<span class="token operator">++</span> <span class="token comment">//jump to next</span>
+            b1 <span class="token operator">=</span> bytes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">//get the next in the pair if possible</span>
+        <span class="token keyword">var</span> b2 <span class="token operator">=</span> bytes<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">?</span> bytes<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+
+        codes <span class="token operator">=</span> codes<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token function">codesForChar</span><span class="token punctuation">(</span>b1<span class="token punctuation">,</span> b2<span class="token punctuation">,</span> barc<span class="token punctuation">.</span>currcs<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//code C takes 2 chars each time</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>barc<span class="token punctuation">.</span>currcs <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">C</span><span class="token punctuation">)</span> i<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">//calculate checksum according to Code 128 standards</span>
+    <span class="token keyword">var</span> checksum <span class="token operator">=</span> codes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> weight <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> weight <span class="token operator">&lt;</span> codes<span class="token punctuation">.</span>length<span class="token punctuation">;</span> weight<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        checksum <span class="token operator">+=</span> <span class="token punctuation">(</span>weight <span class="token operator">*</span> codes<span class="token punctuation">[</span>weight<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    codes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>checksum <span class="token operator">%</span> <span class="token number">103</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    codes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token constant">SET_STOP</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//encoding should now be complete</span>
+    <span class="token keyword">return</span> codes<span class="token punctuation">;</span>
+
+    <span class="token keyword">function</span> <span class="token function">getBestStartSet</span><span class="token punctuation">(</span><span class="token parameter">csa1<span class="token punctuation">,</span> csa2</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//tries to figure out the best codeset</span>
+        <span class="token comment">//to start with to get the most compact code</span>
+        <span class="token keyword">var</span> vote <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        vote <span class="token operator">+=</span> csa1 <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        vote <span class="token operator">+=</span> csa1 <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span> <span class="token operator">?</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        vote <span class="token operator">+=</span> csa2 <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        vote <span class="token operator">+=</span> csa2 <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span> <span class="token operator">?</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token comment">//tie goes to B due to my own predudices</span>
+        <span class="token keyword">return</span> vote <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span> <span class="token operator">:</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">function</span> <span class="token function">perhapsCodeC</span><span class="token punctuation">(</span><span class="token parameter">bytes<span class="token punctuation">,</span> codeset</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> bytes<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">var</span> b <span class="token operator">=</span> bytes<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>b <span class="token operator">&lt;</span> <span class="token number">48</span> <span class="token operator">||</span> b <span class="token operator">></span> <span class="token number">57</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> b <span class="token operator">!=</span> <span class="token constant">CHAR_TILDE</span><span class="token punctuation">)</span>
+                <span class="token keyword">return</span> codeset<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">C</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">//chr1 is current byte</span>
+    <span class="token comment">//chr2 is the next byte to process. looks ahead.</span>
+    <span class="token keyword">function</span> <span class="token function">codesForChar</span><span class="token punctuation">(</span><span class="token parameter">chr1<span class="token punctuation">,</span> chr2<span class="token punctuation">,</span> currcs</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">var</span> result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> shifter <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">charCompatible</span><span class="token punctuation">(</span>chr1<span class="token punctuation">,</span> currcs<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>currcs <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">C</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>chr2 <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    shifter <span class="token operator">=</span> <span class="token constant">SET_CODEB</span><span class="token punctuation">;</span>
+                    currcs <span class="token operator">=</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+                <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>chr2 <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">charCompatible</span><span class="token punctuation">(</span>chr2<span class="token punctuation">,</span> currcs<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token comment">//need to check ahead as well</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">charCompatible</span><span class="token punctuation">(</span>chr2<span class="token punctuation">,</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        shifter <span class="token operator">=</span> <span class="token constant">SET_CODEA</span><span class="token punctuation">;</span>
+                        currcs <span class="token operator">=</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span>
+                    <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                        shifter <span class="token operator">=</span> <span class="token constant">SET_CODEB</span><span class="token punctuation">;</span>
+                        currcs <span class="token operator">=</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">//if there is a next char AND that next char is also not compatible</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>chr2 <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">charCompatible</span><span class="token punctuation">(</span>chr2<span class="token punctuation">,</span> currcs<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">//need to switch code sets</span>
+                <span class="token keyword">switch</span> <span class="token punctuation">(</span>currcs<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token keyword">case</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span><span class="token operator">:</span>
+                        shifter <span class="token operator">=</span> <span class="token constant">SET_CODEB</span><span class="token punctuation">;</span>
+                        currcs <span class="token operator">=</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+                    <span class="token keyword">case</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span><span class="token operator">:</span>
+                        shifter <span class="token operator">=</span> <span class="token constant">SET_CODEA</span><span class="token punctuation">;</span>
+                        currcs <span class="token operator">=</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">//no need to shift code sets, a temporary SHIFT will suffice</span>
+                shifter <span class="token operator">=</span> <span class="token constant">SET_SHIFT</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">//ok some type of shift is nessecary</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>shifter <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>shifter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token function">codeValue</span><span class="token punctuation">(</span>chr1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>currcs <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">C</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">//include next as well</span>
+                result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token function">codeValue</span><span class="token punctuation">(</span>chr1<span class="token punctuation">,</span> chr2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token function">codeValue</span><span class="token punctuation">(</span>chr1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        barc<span class="token punctuation">.</span>currcs <span class="token operator">=</span> currcs<span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//reduce the ascii code to fit into the Code128 char table</span>
+<span class="token keyword">function</span> <span class="token function">codeValue</span><span class="token punctuation">(</span><span class="token parameter">chr1<span class="token punctuation">,</span> chr2</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> chr2 <span class="token operator">==</span> <span class="token string">"undefined"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> chr1 <span class="token operator">>=</span> <span class="token number">32</span> <span class="token operator">?</span> chr1 <span class="token operator">-</span> <span class="token number">32</span> <span class="token operator">:</span> chr1 <span class="token operator">+</span> <span class="token number">64</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>chr1<span class="token punctuation">)</span> <span class="token operator">+</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>chr2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">function</span> <span class="token function">charCompatible</span><span class="token punctuation">(</span><span class="token parameter">chr<span class="token punctuation">,</span> codeset</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> csa <span class="token operator">=</span> <span class="token function">codeSetAllowedFor</span><span class="token punctuation">(</span>chr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>csa <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">ANY</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token comment">//if we need to change from current</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>csa <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">AB</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>csa <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span> <span class="token operator">&amp;&amp;</span> codeset <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>csa <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span> <span class="token operator">&amp;&amp;</span> codeset <span class="token operator">==</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">function</span> <span class="token function">codeSetAllowedFor</span><span class="token punctuation">(</span><span class="token parameter">chr</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>chr <span class="token operator">>=</span> <span class="token number">48</span> <span class="token operator">&amp;&amp;</span> chr <span class="token operator">&lt;=</span> <span class="token number">57</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//0-9</span>
+        <span class="token keyword">return</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">ANY</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>chr <span class="token operator">>=</span> <span class="token number">32</span> <span class="token operator">&amp;&amp;</span> chr <span class="token operator">&lt;=</span> <span class="token number">95</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//0-9 A-Z</span>
+        <span class="token keyword">return</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">AB</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//if non printable</span>
+        <span class="token keyword">return</span> chr <span class="token operator">&lt;</span> <span class="token number">32</span> <span class="token operator">?</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">A</span> <span class="token operator">:</span> <span class="token constant">CODESET</span><span class="token punctuation">.</span><span class="token constant">B</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">Graphics</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">=</span> width<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>height <span class="token operator">=</span> height<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>quiet <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">/</span> <span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>border_size   <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>padding_width <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>area <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        width <span class="token operator">:</span> width <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>padding_width <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>quiet <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        height<span class="token operator">:</span> height <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>border_size <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        top   <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>border_size <span class="token operator">-</span> <span class="token number">4</span><span class="token punctuation">,</span>
+        left  <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>padding_width <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>quiet
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>ctx <span class="token operator">=</span> ctx<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>fg <span class="token operator">=</span> <span class="token string">"#000000"</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>bg <span class="token operator">=</span> <span class="token string">"#ffffff"</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// fill background</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">fillBgRect</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// fill center to create border</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">fillBgRect</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>border_size<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>border_size <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//use native color</span>
+<span class="token class-name">Graphics</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">_fillRect</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">,</span> color</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>ctx<span class="token punctuation">.</span><span class="token function">setFillStyle</span><span class="token punctuation">(</span>color<span class="token punctuation">)</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>ctx<span class="token punctuation">.</span><span class="token function">fillRect</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token class-name">Graphics</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">fillFgRect</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">x<span class="token punctuation">,</span>y<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_fillRect</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>fg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token class-name">Graphics</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">fillBgRect</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">x<span class="token punctuation">,</span>y<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_fillRect</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>bg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">var</span> <span class="token constant">PATTERNS</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 0</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 1</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 2</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 3</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 4</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 5</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 6</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 7</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 8</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 9</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 10</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 11</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 12</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 13</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 14</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 15</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 16</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 17</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 18</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 19</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 20</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 21</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 22</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 23</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 24</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 25</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 26</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 27</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 28</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 29</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 30</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 31</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 32</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 33</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 34</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 35</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 36</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 37</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 38</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 39</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 40</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 41</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 42</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 43</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 44</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 45</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 46</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 47</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 48</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 49</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 50</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 51</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 52</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 53</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 54</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 55</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 56</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 57</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 58</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 59</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 60</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 61</span>
+    <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 62</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 63</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 64</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 65</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 66</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 67</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 68</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 69</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 70</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 71</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 72</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 73</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 74</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 75</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 76</span>
+    <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 77</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 78</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 79</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 80</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 81</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 82</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 83</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 84</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 85</span>
+    <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 86</span>
+    <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 87</span>
+    <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 88</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 89</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 90</span>
+    <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 91</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 92</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 93</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 94</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 95</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 96</span>
+    <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 97</span>
+    <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 98</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 99</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 100</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 101</span>
+    <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 102</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 103</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 104</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 105</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span>   <span class="token comment">// 106</span>
+<span class="token punctuation">]</span></code></pre></p>
+<h2 id="wxml文件"><a href="#wxml文件" class="headerlink" title="wxml文件"></a>wxml文件</h2><p>创建一个canvas标签，存放条形码<br><pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>canvas</span> <span class="token attr-name">canvas-id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;&#123;couponItemid&#125;&#125;<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">width</span><span class="token punctuation">:</span>400rpx<span class="token punctuation">;</span><span class="token property">height</span><span class="token punctuation">:</span>100rpx<span class="token punctuation">;</span><span class="token property">display</span><span class="token punctuation">:</span>block<span class="token punctuation">;</span><span class="token property">margin</span><span class="token punctuation">:</span>0 auto</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>canvas</span><span class="token punctuation">></span></span></code></pre></p>
+<h2 id="组件js文件"><a href="#组件js文件" class="headerlink" title="组件js文件"></a>组件js文件</h2><p>引入封装的<code>barcode_util.js</code>文件，初始化这个条形码的参数<code>(canvasid,条形码数字,宽度,高度)</code></p>
+<blockquote>
+<p>这里的宽度数字不宜太大，我再设置600的时候，发现扫码枪，扫描不上，当时还以为是代码哪里有问题，搞了半天是这里的宽度数字过大，影响的。<br> <pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> wxbarcode <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../../utils/barcode_util.js'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+wxbarcode<span class="token punctuation">.</span><span class="token function">barcode</span><span class="token punctuation">(</span>that<span class="token punctuation">.</span>data<span class="token punctuation">.</span>couponItemid<span class="token punctuation">,</span> item<span class="token punctuation">.</span>check_code<span class="token punctuation">,</span> <span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>我这里做的是一个循环列表，点击生成条形码的需求，单个页面，单个条形码生成，不存在这个问题。</p>
+</blockquote>
+<p>情况是这样子的，循环列表，点击生成条形码，弹框显示隐藏，生成条形码的盒子一直就是一个，第一次生成没有问题，第二次点击的时候，就显示空白了，因为canvas的id没有改变。</p>
+<h3 id="先来说说我的解决办法"><a href="#先来说说我的解决办法" class="headerlink" title="先来说说我的解决办法"></a>先来说说我的解决办法</h3><p>我这里用的方法，比较简单，而且不是很好的方法，大家是怎么解决的，还请大神们评论区告知一下，我好优化优化我的代码。23333</p>
+<p>我这里定义了一个couponItemid，没点击一次，在原始的数据上，重新加一层C+1,更新这个ID每次不重样，是不是比较武力的解决办法，哈哈。<br><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function-variable function">popup</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> that <span class="token operator">=</span> <span class="token keyword">this</span>
+  <span class="token keyword">var</span> item <span class="token operator">=</span> e<span class="token punctuation">.</span>currentTarget<span class="token punctuation">.</span>dataset<span class="token punctuation">.</span>item<span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+   <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+     showModal<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+     couponItemid<span class="token operator">:</span><span class="token string">'c'</span><span class="token operator">+</span>that<span class="token punctuation">.</span>data<span class="token punctuation">.</span>couponItemid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span>
+     couponItem<span class="token operator">:</span>item
+   <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+   wxbarcode<span class="token punctuation">.</span><span class="token function">barcode</span><span class="token punctuation">(</span>that<span class="token punctuation">.</span>data<span class="token punctuation">.</span>couponItemid<span class="token punctuation">,</span> item<span class="token punctuation">.</span>check_code<span class="token punctuation">,</span> <span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></code></pre></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这是第一次使用条形码做扫码枪的识别，之前一直都是用的二维码的方式，希望以后不迷路。很希望得到大神们给予我遇到的哪个问题的优化方案。</p>
+
+      </article>
+      <div class="riseape-post-meta riseape-rainbow">
+    
+        <a class="riseapefont icon-appstore-fill -link" href="/categories/javascript/">javascript</a>
+    
+    
+        <a class="riseapefont icon-tag-fill -none-link" href="/tags/javascript/" rel="tag">javascript</a>
+    
+</div>
+            
+      <!-- 这个元素用来承载生成的二维码 不显示 -->
+      <div id="qrcode" style="display: none"></div>
+
+      <!-- canvas 标签 主要用来进行图形的绘制-->
+      <canvas id="canvas" style="max-width:350px;width:100%;border-radius: 10px;overflow: hidden;;"></canvas>
+
+      <nav class="mdui-theme-layout-dark mdui-color-transparent mdui-row mdui-m-b-2">
+        
+        
+        <div class="mdui-col-xs-12"> <a
+            class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
+            style="max-width:100%" href="/2021/11/16/vue/ditu/" data-pjax-state=""><i
+              class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>【高德地图】vue实现区域地图展示标注地信息</a>
+        </div>
+        
+      </nav>
+
+      
+        <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2021-06-02 09:29:32
+-->
+
+  <div class="riseape-post-copyright">
+    <strong>本文作者：</strong>starm<br>
+    <!-- <strong>本文链接：</strong><a href="http://example.com/2021/11/23/java/barcode/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;11&#x2F;23&#x2F;java&#x2F;barcode&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;11&#x2F;23&#x2F;java&#x2F;barcode&#x2F;</a><br> -->
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+      
+
+
+  </div>
+
+</div>
+
+  <div class="riseape-post-right">
+    <div class="riseape-fixed">
+      <div class="riseape-valign">
+        <div class="riseape-toc">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wxml%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">wxml文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6js%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">组件js文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%88%E6%9D%A5%E8%AF%B4%E8%AF%B4%E6%88%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">先来说说我的解决办法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+    <script type="text/javascript"src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="/js/qrcode.min.js?v=1637636636974"></script>
+
+    <script>
+      var toc = document.getElementsByClassName('toc-link')
+      console.log(toc)
+      for(let i =0;i<toc.length;i++){
+        toc[i].onclick = ()=> {
+          if(!toc[i].style){
+            toc[i].style.color = '#07c160'
+          }else{
+            toc[i].style.color = 'rgba(0,0,0,0.6)'
+          }
+        }
+      }
+      let canvas = document.querySelector("#canvas");
+      canvas.width = 750;
+      canvas.height = 1080;
+      let qr = document.getElementById("qrcode");
+      let ctx = canvas.getContext("2d");
+      let img = new Image();
+      // 这里的第一张图片就是可以是你们的海报 这里注意绘制的顺序 我们要手动控制
+      img.src = 'https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg'
+      img.onload=function () {
+          ctx.drawImage(img,0,0,750,1960);
+          // 对二维码进行初始化
+          let qrcode = new QRCode(qr, {
+              width : 200,
+              height : 200,
+              margin : 10,
+              colorDark : "#000000",
+              colorLight : "#ffffff",
+          });
+          // 为二维码设置内容	
+          qrcode.makeCode(location.href);
+        // 我们的qrcode生成二维码之后也会有一个canvas对象我们获取到这个元素
+          let base64 = qr.firstChild.toDataURL("image/png",1);
+          // 这里的image只能在onload里面绘制 在外面就会被覆盖了 因为优先加载完毕就会优先绘制 然后就被之后绘制的海报背景遮挡了
+          let shareQr = new Image();
+          // 设置base64编码格式值
+          shareQr.src = base64;
+          shareQr.onload=function(){
+              // 绘制图像  就是绘制二维码到我们自己写的canvas中去
+              ctx.drawImage(shareQr,500,800,200,200);
+          };
+          // 绘制字体
+          ctx.font="28px 楷体";
+          ctx.lineWidth=1; 
+          var str = document.getElementById('title').innerText
+          var lineWidth = 0;
+          var canvasWidth = 750;//计算canvas的宽度
+          var initHeight=80;//绘制字体距离canvas顶部初始的高度
+          var lastSubStrIndex= 0; //每次开始截取的字符串的索引
+          for(let i=0;i<str.length;i++){ 
+              lineWidth+=ctx.measureText(str[i]).width; 
+              if(lineWidth>canvasWidth){  
+                  ctx.fillText(str.substring(lastSubStrIndex,i),30,initHeight);//绘制截取部分
+                  initHeight+=20;//20为字体的高度
+                  lineWidth=0;
+                  lastSubStrIndex=i;
+              } 
+              if(i==str.length-1){//绘制剩余部分
+                  ctx.fillText(str.substring(lastSubStrIndex,i+1),30,initHeight);
+              }
+          }
+      };
+
+
+
+</script>
+<style lang="">
+.riseape-post .prev{
+    color:#000
+  }
+.riseape-post .next{
+    color:#000
+  }
+.riseape-post .prev:hover,.riseape-post .next:hover{
+    background-color: rgba(000,000,000,0.2) !important;
+  }
+</style>
+
+  </div>
+  <!--
+ * @Descripttion: 
+ * @version: 0.1.0
+ * @Author: starmbest@qq.com
+ * @Date: 2020-12-09 13:13:39
+ * @LastEditors: starm
+ * @LastEditTime: 2020-12-09 13:55:13
+-->
+<script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ <script src="/js/app.js?v=1637636637258"></script>
+
+
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>
