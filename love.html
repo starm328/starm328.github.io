@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>TO Ying 520</title>
+    <style>
+        body{
+            overflow: hidden;
+        }
+        * {
+            margin: 0;
+            padding: 0
+        }
+        .cover{
+            width: 100vw;
+            height: 100vw;
+            display: flex;
+            flex-direction: column;
+        }
+        #app{
+            background-color: #fff;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .start {
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 10px;
+            border: 1px solid;
+            text-align: center;
+        }
+
+        .body_left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 98;
+        }
+        .body_left img{
+            transform: rotate(90deg);
+        }
+        .body_left image {
+            height: 60%;
+        }
+
+        .body_right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .megirls{
+            transform: rotate(90deg);
+        }
+        .megirls .text{
+            color:red;
+            font-size:25px;
+        }
+        .love-block {
+            transform: rotate(90deg);
+            position: relative;
+            width: 195px;
+            height: 165px;
+            display: grid;
+            margin-top: 100px;
+            grid-template-rows: repeat(11, 15px);
+            grid-template-columns: repeat(13, 15px);
+        }
+
+        .UpMove {
+            animation: upmove 5s linear 1;
+            animation-fill-mode: forwards;
+            -webkit-animation-fill-mode: forwards;
+        }
+        .UpMove2 {
+            animation: upmove2 5s linear 1;
+            animation-fill-mode: forwards;
+            -webkit-animation-fill-mode: forwards;
+        }
+.beat{
+    animation: heartBeat 1s infinite;
+    margin-right: -100%;
+}
+@keyframes heartBeat {
+  0% {
+    transform: scale(1) rotate(90deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(90deg);
+  }
+  100% {
+    transform: scale(1) rotate(90deg);
+  }
+}
+        @keyframes upmove {
+            0% {
+                margin-right: 0;
+            }
+
+            50% {
+                margin-right: -50%;
+            }
+
+            100% {
+                margin-right: -100%;
+            }
+
+        }
+        [v-cloak]{
+            display: none;
+        }
+        @keyframes upmove2 {
+            0% {
+            left:0
+            }
+
+            50% {
+                left:15%
+            }
+
+            100% {
+               left:20%
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+
+        <div class="cover" >
+            <div class="body_left">
+                <img src="https://starm328.github.io/images/biubiu.gif" alt="GIF Image">
+            </div>
+            <div class="body_right">
+               
+                <div v-if="showImg"  class="megirls" style="position: absolute;left:50%;margin-left:-130px;margin-top:100px">
+                    <img src="https://starm328.github.io/images/girls.jpg" style="height:200px;margin:0 auto;    display: block;">
+                    <div class="text">我的女孩520快乐!</div>
+                </div>
+                <div v-if="showImg2"  class="megirls UpMove2" style="position: absolute;left:50%;margin-top:100px;font-size:18px">
+                    <div class="text"><p>喜欢你，我很认真</p><p>认真到想和你相守一辈子</p><p>第一个520</p><p>很幸运也很特殊</p>520遇上1314，我爱你！</div>
+                </div>
+               
+                <div class="love-block" :class="{ UpMove: showOK,beat:showImg }">
+                    <div style="position: relative;width: 15px;height: 15px;" v-for="item in showloveList">
+                        <img src="https://starm328.github.io/images/love.png"
+                            style="position: relative;width: 15px;height: 15px;" v-if="item == '1'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app5 = new Vue({
+            el: '#app',
+            data:{
+                loveList: [],
+                    hideLoveList: [1, 2, 6, 7, 8, 12, 13, 14, 20, 26, 66, 78, 79, 80, 90, 91, 92, 93, 94, 102, 103, 104, 105, 106, 107, 108, 114, 115, 116, 117, 118, 119, 120, 121, 122, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 138, 139, 140, 141, 142, 143],
+                    showNumber: 13,
+                    loveNumber: 11 * 13,
+                    showTime: 0,
+                    severalTimes: 1,
+                    showloveList: [],
+                    showOK: false,
+                    showImg: false,
+                    showImg2:false,
+                    width:0,
+                    height:0
+            },
+            created() {
+                this.getLoveList()
+                this.showTime = Math.ceil(this.loveNumber / this.showNumber)
+                this.width = window.innerWidth
+                this.height = window.innerHeight
+            },
+            mounted() {
+                //git动画是12000ms
+                let _this = this
+                setTimeout(() => {
+                    _this.showLive()
+                }, 11000)
+
+
+            },
+            methods: {
+                getLoveList() {
+                    for (let i = 0; i < 143; i++) {
+                        this.loveList.push('1')
+                    }
+                    this.loveList.forEach((v, n) => {
+                        this.hideLoveList.forEach(h => {
+                            if (n == h - 1) {
+                                this.loveList[n] = '0'
+                            }
+                        })
+                    })
+                },
+                showLive() {
+                    let _this = this
+                    console.log("执行一次")
+                    if (this.severalTimes > this.showTime) {
+                        console.log("绘制完成")
+                        this.showOK = true
+                        setTimeout(() => {
+                            _this.showImg2 = true
+
+
+                        }, 3000)
+                        setTimeout(() => {
+                            _this.showImg2 = false
+                            _this.showImg = true
+                            this.showOK = false
+
+                        }, 9000)
+                    } else {
+                        let loveList = []
+                        this.loveList.forEach((v, n) => {
+                            if (n < this.severalTimes * this.showNumber) {
+                                loveList.push(this.loveList[n])
+                            }
+                        })
+                        this.showloveList = loveList
+                        this.severalTimes++
+                        setTimeout(() => {
+                            _this.showLive()
+                        }, 500)
+                    }
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
