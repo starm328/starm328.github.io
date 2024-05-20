@@ -144,8 +144,8 @@
                     <img src="https://starm328.github.io/images/girls.jpg" style="height:200px;margin:0 auto;    display: block;">
                     <div class="text">我的女孩520快乐!</div>
                 </div>
-                <div v-if="showImg2"  class="megirls UpMove2" style="position: absolute;left:50%;margin-top:100px;font-size:18px">
-                    <div class="text"><p>喜欢你，我很认真</p><p>认真到想和你相守一辈子</p><p>第一个520</p><p>很幸运也很特殊</p>520遇上1314，我爱你！</div>
+                <div   class="megirls UpMove2" style="position: absolute;left:50%;margin-top:100px;font-size:18px">
+                    <div class="text"><p v-if="showImg2">喜欢你，我很认真</p><p v-if="showImg3">认真到想和你相守一辈子</p><p v-if="showImg4">第一个520</p><p v-if="showImg5">很幸运也很特殊</p><p v-if="showImg6">520遇上1314，我爱你！</p></div>
                 </div>
                
                 <div class="love-block" :class="{ UpMove: showOK,beat:showImg }">
@@ -172,6 +172,10 @@
                     showOK: false,
                     showImg: false,
                     showImg2:false,
+                    showImg3:false,
+                    showImg4:false,
+                    showImg5:false,
+                    showImg6:false,
                     width:0,
                     height:0
             },
@@ -211,9 +215,19 @@
                         this.showOK = true
                         setTimeout(() => {
                             _this.showImg2 = true
-
-
                         }, 3000)
+                        setTimeout(() => {
+                            _this.showImg3 = true
+                        }, 3500)
+                        setTimeout(() => {
+                            _this.showImg4 = true
+                        }, 4000)
+                        setTimeout(() => {
+                            _this.showImg5 = true
+                        }, 4500)
+                        setTimeout(() => {
+                            _this.showImg6 = true
+                        }, 5000)
                         setTimeout(() => {
                             _this.showImg2 = false
                             _this.showImg = true
